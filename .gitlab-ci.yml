@@ -1,0 +1,27 @@
+image: node:13.13
+
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - yarn install
+
+#test:
+#  stage: test
+#  script:
+#    - CI=true yarn test
+#  only:
+#    - master
+
+pages:
+  stage: deploy
+  script:
+    - CI=true yarn build
+    - rm -rf public
+    - mv build public
+  artifacts:
+    paths:
+      - public
+#  only:
+#    - master
