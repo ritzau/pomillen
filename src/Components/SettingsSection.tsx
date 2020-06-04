@@ -6,6 +6,8 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup";
+import {Link} from "react-router-dom";
 
 const timeSeparator = new RegExp('[\\.:]')
 
@@ -51,57 +53,57 @@ export function SettingsSection({weightString, setWeight, gender, setGender, sta
 
   return (<Row>
     <Col>
-    <h2 className="mt-2">Settings</h2>
+      <h2 className="my-3">Inställningar</h2>
 
-    <Form>
-      <div className={'row'}>
-        <div className={'col'}>
-          <Form.Group controlId="formGender">
-            <Form.Label>Kön</Form.Label><br/>
-            <ToggleButtonGroup name={'foo'} value={gender} onChange={(v: string) => setGender(v)}>
-              <ToggleButton type={"radio"} value="female">Kvinna</ToggleButton>
-              <ToggleButton type={"radio"} value="male">Man</ToggleButton>
-            </ToggleButtonGroup>
-          </Form.Group>
-        </div>
-      </div>
+      <Form>
+        <Form.Group controlId="formGender">
+          <ToggleButtonGroup name={'foo'} value={gender} onChange={(v: string) => setGender(v)}>
+            <ToggleButton type={"radio"} value="female">Kvinna</ToggleButton>
+            <ToggleButton type={"radio"} value="male">Man</ToggleButton>
+          </ToggleButtonGroup>
+        </Form.Group>
 
-      <div className={'row'}>
-        <div className={'col'}>
-          <Form.Group controlId="formWeight">
-            <Form.Label>Vikt</Form.Label>
-            <Form.Control type="number" placeholder="0" min="1" value={weightString}
-                          onChange={e => setWeight(e.target.value)}/>
-            <Form.Text className="text-muted">
-              Hur mycket väger du i kg?
-            </Form.Text>
-          </Form.Group>
-        </div>
-      </div>
+        <InputGroup className={'my-3'}>
+          <Form.Control
+            placeholder="Hur mycket tänker du bälja i dig?"
+            aria-label="Din vikt i kiloogram"
+            aria-describedby={'weightUnit'}
+            type={'number'}
+            min={'1'}
+            value={weightString}
+            onChange={e => setWeight(e.target.value)}
+          />
+          <InputGroup.Append>
+            <InputGroup.Text id={'weightUnit'}>kg</InputGroup.Text>
+          </InputGroup.Append>
+        </InputGroup>
 
-      <div className={'row'}>
-        <div className={'col'}>
-          <Form.Group controlId="formStartDate">
-            <Form.Label>Tid</Form.Label>
-            <Form.Control
-              type="text"
-              value={startTimeString}
-              pattern={'\\d{1,2}[\\.:]\\d{2}'}
-              onChange={(e) => setStart(e.target.value)}
-            />
-            <Form.Text className="text-muted">
-              När drog du i dig den första?
-            </Form.Text>
-          </Form.Group>
-        </div>
-      </div>
+        <InputGroup className={'my-3'}>
+          <Form.Control
+            placeholder="När drog du i dig den första?"
+            aria-label="Tid vid start"
+            aria-describedby={'startUnit'}
+            pattern={'\\d{1,2}[\\.:]\\d{2}'}
+            value={startTimeString}
+            onChange={e => setStart(e.target.value)}
+          />
+          <InputGroup.Append>
+            <InputGroup.Text id={'startUnit'}>hh.mm</InputGroup.Text>
+          </InputGroup.Append>
+        </InputGroup>
 
-      <Row>
-        <Col>
-          <Button onClick={() => localStorage.clear()}>Nollställ</Button>
-        </Col>
-      </Row>
-    </Form>
+        <Form.Group controlId="formReset">
+          <Link to={'/'}>
+            <Button
+              variant="primary"
+              type="button"
+              onClick={() => localStorage.clear()}
+            >
+              Nollställ
+            </Button>
+          </Link>
+        </Form.Group>
+      </Form>
     </Col>
   </Row>);
 }

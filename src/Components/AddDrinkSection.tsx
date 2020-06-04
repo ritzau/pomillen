@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {Link} from "react-router-dom";
+import InputGroup from "react-bootstrap/InputGroup";
 
 function ebacLevel(ebac: number) {
   if (ebac < 0.2) {
@@ -22,48 +23,63 @@ export function AddDrinkSection({addDrink, ebac, calculateEbac}: {
   ebac: number,
   calculateEbac: (volume: number, alcoholPercentage: number) => number
 }) {
-  const [volumeString, setVolume] = useState('4');
-  const [percentageString, setPercentage] = useState('40');
+  const [volumeString, setVolume] = useState('');
+  const [percentageString, setPercentage] = useState('');
 
   const volume = Number.parseFloat(volumeString);
   const percentage = Number.parseFloat(percentageString);
+  const disabled = isNaN(volume) || isNaN(percentage);
 
-  const leveledEbac = calculateEbac(volume, percentage);
+  const leveledEbac = disabled ? 0 : calculateEbac(volume, percentage);
 
   return (
     <Row>
       <Col>
-        <h2 className={'mt-2'}>Lägg till dricka</h2>
+        <h2 className={'my-3'}>Lägg till dricka</h2>
 
-        <Form action={"/"}>
-          <Form.Group controlId="formVolume">
-            <Form.Label>Volym</Form.Label>
-            <Form.Control type="number" placeholder="0" value={volumeString} min="0"
-                          onChange={e => setVolume(e.target.value)}/>
-            <Form.Text className="text-muted">
-              Hur mycket tänker du bälja i dig i centiliter?
-            </Form.Text>
-          </Form.Group>
+        <Form>
+          <InputGroup className={'my-3'}>
+            <Form.Control
+              placeholder="Hur mycket tänker du bälja i dig?"
+              aria-label="Dryckens volym i centiliter"
+              aria-describedby={'volumeUnit'}
+              type={'number'}
+              min={'0'}
+              value={volumeString}
+              onChange={e => setVolume(e.target.value)}
+            />
+            <InputGroup.Append>
+              <InputGroup.Text id={'volumeUnit'}>cl</InputGroup.Text>
+            </InputGroup.Append>
+          </InputGroup>
 
-          <Form.Group controlId="formPercentage">
-            <Form.Label>Alkoholhalt</Form.Label>
-            <Form.Control type="number" placeholder="0" value={percentageString}
-                          onChange={e => setPercentage(e.target.value)}/>
-            <Form.Text className="text-muted">
-              Hur starkt var det i procent?
-            </Form.Text>
-          </Form.Group>
+          <InputGroup className={'my-3'}>
+            <Form.Control
+              placeholder="Hur stark är drycken?"
+              aria-label="Dryckens alkolholhalt i procent"
+              aria-describedby={'percentageUnit'}
+              type={'number'}
+              min={'0'}
+              value={percentageString}
+              onChange={e => setPercentage(e.target.value)}
+            />
+            <InputGroup.Append>
+              <InputGroup.Text id={'percentageUnit'}>%</InputGroup.Text>
+            </InputGroup.Append>
+          </InputGroup>
 
           <Form.Group controlId="formAdd">
-            <Button
-              as={Link}
-              to={'/'}
-              variant="primary"
-              type="button"
-              onClick={() => addDrink(volume, percentage)}
-            >
-              Add
-            </Button>
+            <Link to={'/'}>
+              <Button
+                className={'float-right'}
+                variant="primary"
+                type="button"
+                disabled={disabled}
+                onClick={() => addDrink(volume, percentage)}
+              >
+                Lägg till
+              </Button>
+            </Link>
             <Form.Text className="text-muted">
               Lägger du till detta kommer du levla
               till <span className={ebacLevel(leveledEbac)}>{leveledEbac.toFixed(2)}&nbsp;&permil;</span>
