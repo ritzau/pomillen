@@ -81,7 +81,7 @@ export function AddDrinkSection({addDrink, ebac, calculateEbac}: {
               </Button>
             </Link>
             <Form.Text className="text-muted">
-              Lägger du till detta kommer du levla
+              Dricker du detta kommer du levla
               till <span className={ebacLevel(leveledEbac)}>{leveledEbac.toFixed(2)}&nbsp;&permil;</span>
             </Form.Text>
           </Form.Group>

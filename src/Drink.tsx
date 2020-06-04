@@ -10,6 +10,12 @@ export class Drink {
     return gramsOfAlcohol(this.volumeCl, this.alcoholPercent);
   }
 
+  public rampedGramsOfAlcohol(now: number): number {
+    const minutesPassed = (now - this.timestamp)/1000/60;
+    const factor = Math.max(0, Math.min(minutesPassed/30, 1));
+    return factor * this.gramsOfAlcohol();
+  }
+
   public toString(): string {
     return `${this.volumeCl} cl/${this.alcoholPercent} %`
   }
@@ -17,6 +23,14 @@ export class Drink {
 
 export function gramsOfAlcohol(volumeCl: number, alcoholPercent: number) {
   return 7.9 * volumeCl * alcoholPercent / 100.0;
+}
+
+export function calculateRampedAlcoholGrams(drinks: Drink[]) {
+  if (drinks.length === 0) {
+    return 0;
+  }
+
+  return drinks.map(d => d.rampedGramsOfAlcohol(Date.now())).reduce((a, b) => a + b);
 }
 
 export function calculateAlcoholGrams(drinks: Drink[]) {

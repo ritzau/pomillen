@@ -6,13 +6,20 @@ import Alert from "react-bootstrap/Alert";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-export function EbacInfoSection({ebac, minutesToGreen}: { ebac: number, minutesToGreen: number }) {
-  const value = Math.min(1.2, ebac);
-  const message = `${ebac.toFixed(2)} ‰`;
+export function EbacInfoSection({ebac, rampedEbac, minutesToGreen}: {
+  ebac: number,
+  rampedEbac: number,
+  minutesToGreen: number
+}) {
+  const value = Math.min(1.2, rampedEbac);
+  const message = `${rampedEbac.toFixed(2)} ‰`;
 
-  const showAlert = ebac >= 0.7;
-  const alertVariant = ebac >= 1.0 ? 'danger' : 'warning';
-  const alertMessage = `Du är grön om ${Math.floor(minutesToGreen)} minuter.`;
+  const alertVariant = ebac < 0.7 ? 'info' : ebac < 1.0 ? 'warning' : 'danger';
+  const ramping = rampedEbac + 0.02 < ebac;
+  const showAlert = ramping || alertVariant !== 'info';
+
+  const formattedEbac = ebac.toFixed(2);
+  const formattedMinutes = Math.ceil(minutesToGreen);
 
   return (
     <Row>
@@ -23,12 +30,26 @@ export function EbacInfoSection({ebac, minutesToGreen}: { ebac: number, minutesT
           formatTextValue={() => message}
           textColor={'black'}
           arcsLength={[0.7, 0.3, 0.2]}
-          animDelay={0}/>
+          animDelay={0}
+          animate={false}
+        />
 
         {showAlert &&
         <Alert variant={alertVariant} className={'text-center'}>
-          {alertMessage}
+          {generateAlertMessage()}
         </Alert>}
       </Col>
     </Row>);
+
+  function generateAlertMessage() {
+    if (ramping && alertVariant !== 'info') {
+      return <span>Du är på väg emot {formattedEbac}&nbsp;&permil; och är grön om {formattedMinutes} min</span>;
+    } else if (ramping) {
+      return <span>Du är på väg emot {formattedEbac}&nbsp;&permil;</span>;
+    } else if (alertVariant !== 'info') {
+      return <span>Du är grön om {formattedMinutes} min</span>;
+    } else {
+      return null;
+    }
+  }
 }

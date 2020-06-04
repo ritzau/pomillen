@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Container from "react-bootstrap/Container";
 import {Route, Switch} from 'react-router-dom';
 
-import {calculateAlcoholGrams, calculateEbac, Drink, gramsOfAlcohol, minutesToGreen} from "../Drink";
+import {calculateRampedAlcoholGrams, calculateEbac, Drink, gramsOfAlcohol, minutesToGreen, calculateAlcoholGrams} from "../Drink";
 import {SettingsSection} from './SettingsSection';
 import {TopBar} from "./TopBar";
 import {AddDrinkSection} from './AddDrinkSection';
@@ -55,13 +55,15 @@ function App() {
   const [foo, setFoo] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => setFoo(foo + 1), 1000);
+    const timer = setInterval(() => setFoo(foo + 1), 2000);
     return () => clearInterval(timer);
   });
 
   const weight = Number.parseFloat(weightString);
   const alcoholGrams = calculateAlcoholGrams(drinks);
   const ebac = calculateEbac(startTime, Date.now(), gender, weight, alcoholGrams);
+  const rampedAlcoholGrams = calculateRampedAlcoholGrams(drinks);
+  const rampedEbac = calculateEbac(startTime, Date.now(), gender, weight, rampedAlcoholGrams);
 
   function addDrink(volumeCl: number, alcoholPercent: number) {
     setDrinks([...drinks, new Drink(Date.now(), volumeCl, alcoholPercent)]);
@@ -115,14 +117,14 @@ function App() {
                                startTime={startTime} setStartTime={setStart}/>
             </Route>
             <Route path='/add'>
-              <AddDrinkSection addDrink={addDrink} ebac={ebac} calculateEbac={calculateEbacX}/>
+              <AddDrinkSection addDrink={addDrink} ebac={rampedEbac} calculateEbac={calculateEbacX}/>
             </Route>
             <Route path='/'>
-              <EbacInfoSection ebac={ebac} minutesToGreen={minutesToGreen(ebac, gender)}/>
+              <EbacInfoSection ebac={ebac} rampedEbac={rampedEbac} minutesToGreen={minutesToGreen(ebac, gender)}/>
               <Row>
                 <Col>
                   <h2 className={'mb-4'}>Dricka</h2>
-                  <QuickAddSection shortcuts={shortcuts} ebac={ebac} calculateEbac={calculateEbacX}
+                  <QuickAddSection shortcuts={shortcuts} ebac={rampedEbac} calculateEbac={calculateEbacX}
                                    addDrink={addDrink}/>
                   <DrinksSection drinks={drinks} deleteDrink={deleteDrink}/>
                 </Col>
