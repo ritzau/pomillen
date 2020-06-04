@@ -105,30 +105,33 @@ function App() {
 
   return (
     <>
-      <TopBar/>
-      <Container fluid={'lg'}>
-        <Switch>
-          <Route path='/config'>
-            <SettingsSection weightString={weightString} setWeight={setWeight} gender={gender}
-                             setGender={setGender}
-                             startTime={startTime} setStartTime={setStart}/>
-          </Route>
-          <Route path='/add'>
-            <AddDrinkSection addDrink={addDrink} ebac={ebac} calculateEbac={calculateEbacX}/>
-          </Route>
-          <Route path='/'>
-            <EbacInfoSection ebac={ebac} minutesToGreen={minutesToGreen(ebac, gender)}/>
-            <Row>
-              <Col>
-                <h2 className={'mb-4'}>Dricka</h2>
-                <QuickAddSection shortcuts={shortcuts} ebac={ebac} calculateEbac={calculateEbacX} addDrink={addDrink}/>
-                <DrinksSection drinks={drinks} deleteDrink={deleteDrink}/>
-              </Col>
-            </Row>
-          </Route>
-        </Switch>
-      </Container>
-      <Footer />
+      <div className={'content'}>
+        <TopBar/>
+        <Container fluid={'lg'}>
+          <Switch>
+            <Route path='/config'>
+              <SettingsSection weightString={weightString} setWeight={setWeight} gender={gender}
+                               setGender={setGender}
+                               startTime={startTime} setStartTime={setStart}/>
+            </Route>
+            <Route path='/add'>
+              <AddDrinkSection addDrink={addDrink} ebac={ebac} calculateEbac={calculateEbacX}/>
+            </Route>
+            <Route path='/'>
+              <EbacInfoSection ebac={ebac} minutesToGreen={minutesToGreen(ebac, gender)}/>
+              <Row>
+                <Col>
+                  <h2 className={'mb-4'}>Dricka</h2>
+                  <QuickAddSection shortcuts={shortcuts} ebac={ebac} calculateEbac={calculateEbacX}
+                                   addDrink={addDrink}/>
+                  <DrinksSection drinks={drinks} deleteDrink={deleteDrink}/>
+                </Col>
+              </Row>
+            </Route>
+          </Switch>
+        </Container>
+      </div>
+      <Footer/>
     </>
   );
 }
