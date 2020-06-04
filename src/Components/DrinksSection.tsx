@@ -11,7 +11,6 @@ export function DrinksSection({drinks, deleteDrink}: {
   return (
     <Row>
       <Col>
-        <h2>Dricka</h2>
         <ul className="list-group">
           {drinks.map((d, i) => (
             <li key={i} className="list-group-item">

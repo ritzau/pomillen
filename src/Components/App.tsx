@@ -12,6 +12,8 @@ import {EbacInfoSection} from "./EbacInfoSection";
 
 import './App.css';
 import {Footer} from "./Footer";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function loadStartTime(): number {
   let item = localStorage.getItem('startTime');
@@ -116,8 +118,13 @@ function App() {
           </Route>
           <Route path='/'>
             <EbacInfoSection ebac={ebac} minutesToGreen={minutesToGreen(ebac, gender)}/>
-            <QuickAddSection shortcuts={shortcuts} ebac={ebac} calculateEbac={calculateEbacX} addDrink={addDrink}/>
-            <DrinksSection drinks={drinks} deleteDrink={deleteDrink}/>
+            <Row>
+              <Col>
+                <h2 className={'mb-4'}>Dricka</h2>
+                <QuickAddSection shortcuts={shortcuts} ebac={ebac} calculateEbac={calculateEbacX} addDrink={addDrink}/>
+                <DrinksSection drinks={drinks} deleteDrink={deleteDrink}/>
+              </Col>
+            </Row>
           </Route>
         </Switch>
       </Container>
