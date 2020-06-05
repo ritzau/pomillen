@@ -20,3 +20,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+  min-width: 288px;
+  max-width: 960px;
+}
