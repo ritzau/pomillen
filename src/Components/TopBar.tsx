@@ -6,7 +6,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faChevronLeft, faCog} from '@fortawesome/free-solid-svg-icons'
+import {faUser} from "@fortawesome/free-solid-svg-icons/faUser";
+import {faChevronLeft} from "@fortawesome/free-solid-svg-icons/faChevronLeft";
 
 export function TopBar() {
   return (
@@ -15,7 +16,7 @@ export function TopBar() {
         <Navbar.Brand>Pomillen</Navbar.Brand>
         <Nav className={'ml-auto'}>
           <Nav.Link as={Link} className={'nav navbar-nav navbar-right'} to="/config">
-            <FontAwesomeIcon icon={faCog}/>
+            <FontAwesomeIcon icon={faUser} />
           </Nav.Link>
         </Nav>
       </Container>
