@@ -2,9 +2,16 @@ import React, {useEffect, useState} from 'react';
 import Container from "react-bootstrap/Container";
 import {Route, Switch} from 'react-router-dom';
 
-import {calculateRampedAlcoholGrams, calculateEbac, Drink, gramsOfAlcohol, minutesToGreen, calculateAlcoholGrams} from "../Drink";
+import {
+  calculateRampedAlcoholGrams,
+  calculateEbac,
+  Drink,
+  gramsOfAlcohol,
+  minutesToGreen,
+  calculateAlcoholGrams
+} from "../Drink";
 import {SettingsSection} from './SettingsSection';
-import {TopBar} from "./TopBar";
+import {TopBar, BackBar} from "./TopBar";
 import {AddDrinkSection} from './AddDrinkSection';
 import {QuickAddSection} from "./QuickAddSection";
 import {DrinksSection} from "./DrinksSection";
@@ -108,18 +115,24 @@ function App() {
   return (
     <>
       <div className={'content'}>
-        <TopBar/>
-        <Container fluid={'lg'}>
-          <Switch>
-            <Route path='/config'>
+        <Switch>
+          <Route path='/config'>
+            <BackBar/>
+            <Container fluid={'lg'}>
               <SettingsSection weightString={weightString} setWeight={setWeight} gender={gender}
                                setGender={setGender}
                                startTime={startTime} setStartTime={setStart}/>
-            </Route>
-            <Route path='/add'>
+            </Container>
+          </Route>
+          <Route path='/add'>
+            <BackBar/>
+            <Container fluid={'lg'}>
               <AddDrinkSection addDrink={addDrink} ebac={rampedEbac} calculateEbac={calculateEbacX}/>
-            </Route>
-            <Route path='/'>
+            </Container>
+          </Route>
+          <Route path='/'>
+            <TopBar/>
+            <Container fluid={'lg'}>
               <EbacInfoSection ebac={ebac} rampedEbac={rampedEbac} minutesToGreen={minutesToGreen(ebac, gender)}/>
               <Row>
                 <Col>
@@ -129,9 +142,9 @@ function App() {
                   <DrinksSection drinks={drinks} deleteDrink={deleteDrink}/>
                 </Col>
               </Row>
-            </Route>
-          </Switch>
-        </Container>
+            </Container>
+          </Route>
+        </Switch>
       </div>
       <Footer/>
     </>
