@@ -43,7 +43,7 @@ export function calculateAlcoholGrams(drinks: Drink[]) {
 
 export function calculateEbac(startTime: number, time: number, gender: string, weight: number, alcoholGrams: number) {
   const bw = gender === 'male' ? 0.55 : 0.49;
-  const burnRate = gender === 'male' ? 0.017 : 0.019;
+  const burnRate = gender === 'male' ? 0.015 : 0.017;
   const peak = 0.806 * alcoholGrams / bw / weight / 1000.0 * 100.0;
   const ebac = 10 * (peak - burnRate * hoursPassed(startTime, time));
   return Math.max(0, ebac);
