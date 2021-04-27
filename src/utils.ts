@@ -1,3 +1,15 @@
+export function millisFromHours(hours: number) {
+    return millisFromMinutes(hours * 60);
+}
+
+export function millisFromMinutes(minutes: number) {
+    return millisFromSeconds(minutes * 60);
+}
+
+export function millisFromSeconds(seconds: number) {
+    return seconds * 1000;
+}
+
 export function hoursFromMillis(millis: number): number {
     return minutesFromMillis(millis) / 60;
 }

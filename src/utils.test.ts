@@ -1,6 +1,10 @@
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'node:constants';
 import {
     clamp,
     hoursFromMillis,
+    millisFromHours,
+    millisFromMinutes,
+    millisFromSeconds,
     minutesFromMillis,
     secondsFromMillis,
     sum,
@@ -28,6 +32,20 @@ it('converts time', () => {
     expect(hoursFromMillis(3_600_000)).toEqual(1);
     expect(hoursFromMillis(86_400_000)).toEqual(24);
     expect(hoursFromMillis(1_800_000)).toBeCloseTo(0.5);
+
+    expect(millisFromSeconds(0)).toBe(0)
+    expect(millisFromSeconds(10)).toBe(10_000)
+    expect(millisFromSeconds(120)).toBe(120_000)
+    expect(millisFromSeconds(0.5)).toBeCloseTo(500)
+
+    expect(millisFromMinutes(0)).toBe(0)
+    expect(millisFromMinutes(1)).toBe(60_000)
+    expect(millisFromMinutes(1.5)).toBeCloseTo(90_000)
+
+    expect(millisFromHours(0)).toBe(0)
+    expect(millisFromHours(1)).toBe(3_600_000)
+    expect(millisFromHours(24)).toBe(86_400_000)
+    expect(millisFromHours(0.5)).toBeCloseTo(1_800_000)
 });
 
 it('sums numbers', () => {

@@ -4,8 +4,15 @@ import {
     totalRampedGramsOfAlcohol,
     totalGramsOfAlcohol,
     Drink,
+    ebacPeak,
 } from './Drink'
+
 import { millisFromMinutes } from './utils'
+
+import { toMatchCloseTo } from 'jest-matcher-deep-close-to'
+
+expect.extend({ toMatchCloseTo })
+
 
 it('alcohol conversion', () => {
     expect(gramsOfAlcohol(0, 0)).toBe(0)
@@ -87,20 +94,52 @@ it('handles lists of drinks', () => {
     expect(totalGramsOfAlcohol(threeDrinks)).toBeCloseTo(3 * g)
 
     expect(totalRampedGramsOfAlcohol({
-        millisSinceEpoch: 0, 
-        absorptionMinutes: 0, 
+        millisSinceEpoch: 0,
+        absorptionMinutes: 0,
         drinks: []
     })).toBe(0)
 
     expect(totalRampedGramsOfAlcohol({
-        millisSinceEpoch: millisFromMinutes(1), 
-        absorptionMinutes: 1, 
+        millisSinceEpoch: millisFromMinutes(1),
+        absorptionMinutes: 1,
         drinks: threeDrinks
     })).toBeCloseTo(3 * g)
 
     expect(totalRampedGramsOfAlcohol({
-        millisSinceEpoch: millisFromMinutes(1), 
-        absorptionMinutes: 2, 
+        millisSinceEpoch: millisFromMinutes(1),
+        absorptionMinutes: 2,
         drinks: threeDrinks
     })).toBeCloseTo(3 * g / 2)
+})
+
+it('computes peak', () => {
+    const vol = 4
+    const pct = 40
+    const g = gramsOfAlcohol(vol, pct)
+    const d = new Drink(0, vol, pct)
+    const drinks = [d, d, d]
+    const absorptionMinutes = 20
+    const millisSinceEpoch = 0
+
+    expect(ebacPeak({
+        drinks,
+        absorptionMinutes,
+        millisSinceEpoch,
+    })).toMatchCloseTo({peakTimeSinceEpoch: millisFromMinutes(absorptionMinutes), peakGrams: 3 * g})
+})
+
+it('computes peak that peaked already', () => {
+    const vol = 4
+    const pct = 40
+    const g = gramsOfAlcohol(vol, pct)
+    const d = new Drink(0, vol, pct)
+    const drinks = [d, d, d]
+    const absorptionMinutes = 20
+    const millisSinceEpoch = 0
+
+    expect(ebacPeak({
+        drinks,
+        absorptionMinutes,
+        millisSinceEpoch: 2 * millisFromMinutes(absorptionMinutes),
+    })).toMatchCloseTo({peakTimeSinceEpoch: 2 * millisFromMinutes(absorptionMinutes), peakGrams: 3 * g})
 })

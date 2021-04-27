@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import {
     Drink,
+    ebacPeak,
     gramsOfAlcohol,
     totalGramsOfAlcohol,
     totalRampedGramsOfAlcohol,
@@ -76,6 +77,13 @@ function App() {
 
     const alcoholGrams = totalGramsOfAlcohol(drinks)
     const ebac = profile.ebac(Date.now(), alcoholGrams)
+    const { peakTimeSinceEpoch, peakGrams } = ebacPeak({
+        millisSinceEpoch: Date.now(),
+        absorptionMinutes: DEFAULT_ABSORPTION_MINUTES,
+        drinks,
+    })
+    const peakEbac = profile.ebac(peakTimeSinceEpoch, peakGrams)
+
     const rampedAlcoholGrams = totalRampedGramsOfAlcohol({
         millisSinceEpoch: Date.now(),
         absorptionMinutes: DEFAULT_ABSORPTION_MINUTES,
@@ -144,7 +152,7 @@ function App() {
                     <Route path='/'>
                         <TopBar />
                         <Container fluid={'lg'}>
-                            <EbacInfoSection ebac={ebac} rampedEbac={rampedEbac} minutesToGreen={profile.minutesToGreen(ebac)} />
+                            <EbacInfoSection ebac={peakEbac} rampedEbac={rampedEbac} minutesToGreen={profile.minutesToGreen(ebac)} />
                             <Row>
                                 <Col>
                                     <h2 className={'mb-4'}>Dricka</h2>
