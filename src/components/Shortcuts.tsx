@@ -49,11 +49,11 @@ const Shortcuts: React.FC<Shortcuts> = (props) => {
         .slice(0, maxButtons - 1)
         .map(([cl, pct]: number[]) => (
             <IonCol key={`${cl}:${pct}`} {...colProps}>
-                <IonButton expand='block' onClick={() => props.addDrink(cl, pct)}>
-                    <small>{cl} cl<br />{pct}&nbsp;%</small>
+                <IonButton expand='block' size='large' onClick={() => props.addDrink(cl, pct)}>
+                    {cl} cl<br />{pct}&nbsp;%
                 </IonButton>
                 <div className='ion-text-center'>
-                    <small>{(props.calculateEbac(cl, pct)).toFixed(2)}&nbsp;&permil;</small>
+                    {(props.calculateEbac(cl, pct)).toFixed(2)}&nbsp;&permil;
                 </div>
             </IonCol>
         ))
@@ -63,11 +63,11 @@ const Shortcuts: React.FC<Shortcuts> = (props) => {
             <IonRow className='ion-align-items-end'>
                 {buttons}
                 <IonCol {...colProps}>
-                    <IonButton color="primary" fill='outline' expand='block' href="#/add">
-                        <small>Mer<br />dricka</small>
+                    <IonButton color="primary" size='large' fill='outline' expand='block' href="#/add">
+                        Mer<br />dricka
                     </IonButton>
                     <div className='ion-text-center'>
-                        <small>&nbsp;</small>
+                        &nbsp;
                     </div>
                 </IonCol>
             </IonRow>
