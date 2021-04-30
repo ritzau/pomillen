@@ -63,7 +63,7 @@ const Shortcuts: React.FC<Shortcuts> = (props) => {
             <IonRow className='ion-align-items-end'>
                 {buttons}
                 <IonCol {...colProps}>
-                    <IonButton color="primary" fill='outline' expand='block' href="/add">
+                    <IonButton color="primary" fill='outline' expand='block' href="#/add">
                         <small>Mer<br />dricka</small>
                     </IonButton>
                     <div className='ion-text-center'>

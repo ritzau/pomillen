@@ -41,7 +41,7 @@ const EbacHome: React.FC<EbacHomeProps> = (props) => (
             <IonToolbar>
                 <IonTitle>Pomillen</IonTitle>
                 <IonButtons slot="primary">
-                    <IonButton href='/config'>
+                    <IonButton href='#/config'>
                         <IonIcon slot='icon-only' icon={personCircleOutline} />
                     </IonButton>
                 </IonButtons>

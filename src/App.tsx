@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
+import { IonReactHashRouter } from '@ionic/react-router';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -142,7 +142,7 @@ const App: React.FC = () => {
     return (
         <ProfileContext.Provider value={{value: profile, set: updateProfile}}>
             <IonApp>
-                <IonReactRouter>
+                <IonReactHashRouter>
                     <IonRouterOutlet>
                         <Route exact path="/home">
                             <EbacHome 
@@ -171,7 +171,7 @@ const App: React.FC = () => {
                             <SettingsPage />
                         </Route>
                     </IonRouterOutlet>
-                </IonReactRouter>
+                </IonReactHashRouter>
             </IonApp>
         </ProfileContext.Provider>
     )
