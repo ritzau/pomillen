@@ -5,19 +5,19 @@ cache:
     - node_modules/
 
 before_script:
-  - yarn install
+  - npm install
 
 #test:
 #  stage: test
 #  script:
-#    - CI=true yarn test
+#    - CI=true npm test
 #  only:
 #    - master
 
 pages:
   stage: deploy
   script:
-    - CI=true yarn build
+    - CI=true npm build
     - rm -rf public
     - mv build public
   artifacts:
