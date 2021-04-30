@@ -1,4 +1,4 @@
-image: node:13.13
+image: node:14.16
 
 cache:
   paths:
@@ -17,7 +17,7 @@ before_script:
 pages:
   stage: deploy
   script:
-    - CI=true npm build
+    - CI=true npm run build
     - rm -rf public
     - mv build public
   artifacts:
