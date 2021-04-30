@@ -29,44 +29,47 @@ const BURN_RATE_MALE = 0.015 // 0.013 – 0.017
 const WATER_TO_BLOOD_RATIO = 0.806
 const DEFAULT_GREEN_LEVEL_PERMILLAGE = 0.7
 
-export class EbacProfile {
-    public static CreateFemaleProfile(bodyWeight: number, startTime: number): EbacProfile {
+const DEFAULT_ABSORPTION_MINUTES = 20
+
+export default class EbacProfile {
+    public static CreateOtherProfile(bodyWeight: number): EbacProfile {
         return new EbacProfile(
-            startTime,
             bodyWeight,
-            BODY_WATER_RATIO_FEMALE,
+            (BODY_WATER_RATIO_FEMALE + BODY_WATER_RATIO_MALE) / 2,
             WATER_TO_BLOOD_RATIO,
-            BURN_RATE_FEMALE,
-            DEFAULT_GREEN_LEVEL_PERMILLAGE);
+            (BURN_RATE_FEMALE + BURN_RATE_MALE) / 2,
+            DEFAULT_GREEN_LEVEL_PERMILLAGE,
+            DEFAULT_ABSORPTION_MINUTES);
     }
 
-    public static CreateMaleProfile(bodyWeight: number, startTime: number): EbacProfile {
+    public static CreateFrom(profile: EbacProfile, props: any) {        
         return new EbacProfile(
-            startTime,
-            bodyWeight,
-            BODY_WATER_RATIO_MALE,
-            WATER_TO_BLOOD_RATIO,
-            BURN_RATE_MALE,
-            DEFAULT_GREEN_LEVEL_PERMILLAGE);
+            props.bodyWeight ?? profile.bodyWeight,
+            props.bodyWaterRatio ?? profile.bodyWaterRatio,
+            props.waterToBloodRatio ?? profile.waterToBloodRatio,
+            props.burnRatePerHour ?? profile.burnRatePerHour,
+            props.greenLevelPermillage ?? profile.greenLevelPermillage,
+            props.absorptionMinutes ?? profile.absorptionMinutes,
+        )
     }
 
     private constructor(
-        private readonly startTimeMillisSinceEpoch: number,
-        private readonly bodyWeight: number,
-        private readonly bodyWaterRatio: number,
-        private readonly waterToBloodRatio: number,
-        private readonly burnRatePerHour: number,
-        private readonly greenLevelPermillage: number,
+        readonly bodyWeight: number,
+        readonly bodyWaterRatio: number,
+        readonly waterToBloodRatio: number,
+        readonly burnRatePerHour: number,
+        readonly greenLevelPermillage: number,
+        readonly absorptionMinutes: number,
     ) { }
 
-    public ebac(millisSinceEpoch: number, alcoholGrams: number): number {
+    public ebac(alcoholGrams: number, hoursPassed: number): number {
         return calculateEbac({
             bodyWaterRatio: this.bodyWaterRatio,
             bodyWeight: this.bodyWeight,
             waterToBloodRatio: this.waterToBloodRatio,
             alcoholGrams,
             burnRatePerHour: this.burnRatePerHour,
-            hoursPassed: hoursFromMillis(millisSinceEpoch - this.startTimeMillisSinceEpoch),
+            hoursPassed,
         })
     }
 

@@ -1,5 +1,5 @@
 import { gramsOfAlcohol } from './Drink'
-import { calculateEbac, minutesToGreen, EbacProfile } from './ebac'
+import EbacProfile, { calculateEbac, minutesToGreen } from './ebac'
 
 it('calculates ebac', () => {
     // Sample from cited EBAC report

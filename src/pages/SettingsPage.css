@@ -1,0 +1,4 @@
+ion-item > section > p {
+    color: var(--ion-color-medium-shade);
+    line-height: 1.5;
+}
