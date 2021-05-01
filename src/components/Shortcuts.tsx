@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React, { 
+    ReactNode, 
+    useEffect, 
+    useState 
+} from "react"
 
 import {
     IonButton,
@@ -32,12 +36,12 @@ const Shortcuts: React.FC<Shortcuts> = (props) => {
         colProps = { sizeXs: '4' }
     }
     else {
-        colProps = { sizeLg: '1', sizeSm: '2', sizeXs: '3' }
+        colProps = { sizeXl: '1', sizeSm: '2', sizeXs: '3' }
 
         if (windowDimensions.width < 576) {
             maxButtons = 8
         }
-        else if (windowDimensions.width < 992) {
+        else if (windowDimensions.width < 1200) {
             maxButtons = 6
         }
         else {
@@ -49,12 +53,12 @@ const Shortcuts: React.FC<Shortcuts> = (props) => {
         .slice(0, maxButtons - 1)
         .map(([cl, pct]: number[]) => (
             <IonCol key={`${cl}:${pct}`} {...colProps}>
-                <IonButton expand='block' size='large' onClick={() => props.addDrink(cl, pct)}>
-                    {cl} cl<br />{pct}&nbsp;%
-                </IonButton>
-                <div className='ion-text-center'>
-                    {(props.calculateEbac(cl, pct)).toFixed(2)}&nbsp;&permil;
-                </div>
+                <ShortcutButton 
+                onClick={() => props.addDrink(cl, pct)} 
+                sublabel={<>{(props.calculateEbac(cl, pct)).toFixed(2)}&nbsp;&permil;</>}
+                >
+                    {cl} cl/{pct}&nbsp;%
+                </ShortcutButton>
             </IonCol>
         ))
 
@@ -63,18 +67,35 @@ const Shortcuts: React.FC<Shortcuts> = (props) => {
             <IonRow className='ion-align-items-end'>
                 {buttons}
                 <IonCol {...colProps}>
-                    <IonButton color="primary" size='large' fill='outline' expand='block' href="#/add">
-                        Mer<br />dricka
-                    </IonButton>
-                    <div className='ion-text-center'>
-                        &nbsp;
-                    </div>
+                    <ShortcutButton fill='clear' href="#/add">
+                        Mer dricka
+                    </ShortcutButton>
                 </IonCol>
             </IonRow>
         </IonGrid>)
 }
 
 export default Shortcuts
+
+// XXX: How do I get all props of IonButton?
+interface ShortcutButtonProps {
+    fill?: 'outline' | 'solid' | 'default' | 'clear'
+    href?: string
+    onClick?: () => void
+    children?: ReactNode
+    sublabel?: ReactNode
+}
+
+const ShortcutButton: React.FC<ShortcutButtonProps> = (props) => (
+    <>
+        <IonButton style={{textTransform: 'none'}} {...props} color='primary' expand='block'>
+            {props.children}
+        </IonButton>
+        <div className='ion-text-center'>
+            <small>{props.sublabel ? props.sublabel : <>&nbsp;</>}</small>
+        </div>
+    </>
+)
 
 function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window
