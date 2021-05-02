@@ -1,27 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
-import { IonReactHashRouter } from '@ionic/react-router';
-
-/* Core CSS required for Ionic components to work properly */
-import '@ionic/react/css/core.css';
-
-/* Basic CSS for apps built with Ionic */
-import '@ionic/react/css/normalize.css';
-import '@ionic/react/css/structure.css';
-import '@ionic/react/css/typography.css';
-
-/* Optional CSS utils that can be commented out */
-import '@ionic/react/css/padding.css';
-import '@ionic/react/css/float-elements.css';
-import '@ionic/react/css/text-alignment.css';
-import '@ionic/react/css/text-transformation.css';
-import '@ionic/react/css/flex-utils.css';
-import '@ionic/react/css/display.css';
-
-/* Theme variables */
-import './theme/variables.css';
+import { Route, Switch } from 'react-router-dom';
 
 import {
     Drink,
@@ -140,39 +119,32 @@ const App: React.FC = () => {
     }
 
     return (
-        <ProfileContext.Provider value={{value: profile, set: updateProfile}}>
-            <IonApp>
-                <IonReactHashRouter>
-                    <IonRouterOutlet>
-                        <Route exact path="/home">
-                            <EbacHome 
-                                ebac={ebac}
-                                peakEbac={peakEbac}
-                                rampedEbac={rampedEbac}
-                                minutesToGreen={profile.minutesToGreen(ebac)}
-                                shortcuts={shortcuts}
-                                drinks={drinks}
-                                addDrink={addDrink}
-                                deleteDrink={deleteDrink}
-                                calculateEbac={calculateEbacX}
-                                />
-                        </Route>
-                        <Route exact path="/add">
-                            <NewDrinkPage 
-                                addDrink={addDrink} 
-                                ebac={rampedEbac} 
-                                calculateEbac={calculateEbacX} 
-                                />
-                        </Route>
-                        <Route exact path="/">
-                            <Redirect to="/home" />
-                        </Route>
-                        <Route exact path="/config">
-                            <SettingsPage />
-                        </Route>
-                    </IonRouterOutlet>
-                </IonReactHashRouter>
-            </IonApp>
+        <ProfileContext.Provider value={{ value: profile, set: updateProfile }}>
+            <Switch>
+                <Route path='/config'>
+                    <SettingsPage />
+                </Route>
+                <Route path='/add'>
+                    <NewDrinkPage
+                        addDrink={addDrink}
+                        ebac={rampedEbac}
+                        calculateEbac={calculateEbacX}
+                    />
+                </Route>
+                <Route path='/'>
+                    <EbacHome
+                        ebac={ebac}
+                        peakEbac={peakEbac}
+                        rampedEbac={rampedEbac}
+                        minutesToGreen={profile.minutesToGreen(ebac)}
+                        shortcuts={shortcuts}
+                        drinks={drinks}
+                        addDrink={addDrink}
+                        deleteDrink={deleteDrink}
+                        calculateEbac={calculateEbacX}
+                    />
+                </Route>
+            </Switch>
         </ProfileContext.Provider>
     )
 }

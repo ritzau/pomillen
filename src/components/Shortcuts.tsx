@@ -5,19 +5,20 @@ import React, {
 } from "react"
 
 import {
-    IonButton,
-    IonCol,
-    IonGrid,
-    IonRow,
-} from '@ionic/react'
+    Button,
+    Container,
+    Grid,
+    Menu,
+    Segment,
+} from 'semantic-ui-react'
 
-interface Shortcuts {
+interface ShortcutProps {
     shortcuts: number[][]
     calculateEbac: (cl: number, pct: number) => number
     addDrink: (cl: number, pct: number) => void
 }
 
-const Shortcuts: React.FC<Shortcuts> = (props) => {
+const Shortcuts: React.FC<ShortcutProps> = (props: ShortcutProps) => {
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
     useEffect(() => {
@@ -33,10 +34,15 @@ const Shortcuts: React.FC<Shortcuts> = (props) => {
     let colProps: {}
     if (windowDimensions.width < 375) {
         maxButtons = 6
-        colProps = { sizeXs: '4' }
+        colProps = { mobile: '4' }
     }
     else {
-        colProps = { sizeXl: '1', sizeSm: '2', sizeXs: '3' }
+        colProps = {
+            style:{marginLeft: '-8px', marginRight: '-8px'}, 
+            computer: '2', 
+            tablet: '4', 
+            mobile: '8'
+        }
 
         if (windowDimensions.width < 576) {
             maxButtons = 8
@@ -52,46 +58,46 @@ const Shortcuts: React.FC<Shortcuts> = (props) => {
     const buttons = props.shortcuts
         .slice(0, maxButtons - 1)
         .map(([cl, pct]: number[]) => (
-            <IonCol key={`${cl}:${pct}`} {...colProps}>
+            <Grid.Column key={`${cl}:${pct}`} {...colProps}>
                 <ShortcutButton 
-                onClick={() => props.addDrink(cl, pct)} 
-                sublabel={<>{(props.calculateEbac(cl, pct)).toFixed(2)}&nbsp;&permil;</>}
-                >
+                    onClick={() => props.addDrink(cl, pct)} 
+                    sublabel={<>{(props.calculateEbac(cl, pct)).toFixed(2)}&nbsp;&permil;</>}
+                    >
                     {cl} cl/{pct}&nbsp;%
                 </ShortcutButton>
-            </IonCol>
+            </Grid.Column>
         ))
 
     return (
-        <IonGrid className='ion-margin-horizontal-x' fixed={false}>
-            <IonRow className='ion-align-items-end'>
-                {buttons}
-                <IonCol {...colProps}>
-                    <ShortcutButton fill='clear' href="#/add">
-                        Mer dricka
-                    </ShortcutButton>
-                </IonCol>
-            </IonRow>
-        </IonGrid>)
+        <Grid>
+            <Grid.Row columns={12}>
+            {buttons}
+            <Grid.Column {...colProps}>
+                <ShortcutButton basic href="#/add">
+                    Mer dricka
+                </ShortcutButton>
+            </Grid.Column>
+            </Grid.Row>
+        </Grid>)
 }
 
 export default Shortcuts
 
-// XXX: How do I get all props of IonButton?
+// XXX: How do I get all props of Button?
 interface ShortcutButtonProps {
-    fill?: 'outline' | 'solid' | 'default' | 'clear'
+    basic?: boolean
     href?: string
     onClick?: () => void
     children?: ReactNode
     sublabel?: ReactNode
 }
 
-const ShortcutButton: React.FC<ShortcutButtonProps> = (props) => (
+const ShortcutButton: React.FC<ShortcutButtonProps> = (props: ShortcutButtonProps) => (
     <>
-        <IonButton style={{textTransform: 'none'}} {...props} color='primary' expand='block'>
+        <Button {...props} fluid primary compact>
             {props.children}
-        </IonButton>
-        <div className='ion-text-center'>
+        </Button>
+        <div>
             <small>{props.sublabel ? props.sublabel : <>&nbsp;</>}</small>
         </div>
     </>

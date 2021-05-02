@@ -1,16 +1,13 @@
-import {
-    IonIcon,
-    IonItem,
-    IonItemOption,
-    IonItemOptions,
-    IonItemSliding,
-    IonLabel,
-    IonList,
-} from '@ionic/react';
 
-import { 
-    trashBinSharp,
- } from 'ionicons/icons'
+import {
+    Button,
+    Container,
+    Menu,
+    Segment,
+    Label,
+    Item,
+    List,
+} from 'semantic-ui-react'
 
 import { Drink } from "../Drink";
 
@@ -19,19 +16,20 @@ export default function DrinksList({ drinks, deleteDrink }: {
     deleteDrink: (id: number) => void
 }) {
     return (
-        <IonList>
+        <List>
             {drinks.map((d, i) => (
-                <IonItemSliding key={d.timestamp}>
-                    <IonItem>
-                        <IonLabel>{d.toString()}</IonLabel>
-                    </IonItem>
-                    <IonItemOptions side="end" onIonSwipe={() => deleteDrink(i)}>
-                        <IonItemOption color='danger' slot='icon-only' expandable={true} onClick={() => deleteDrink(i)}>
-                            <IonIcon icon={trashBinSharp} />
-                        </IonItemOption>
-                    </IonItemOptions>
-                </IonItemSliding>
+                // <IonItemSliding key={d.timestamp}>
+                    <List.Item>
+                        <Button negative icon='trash' compact floated='right'></Button>
+                        {d.toString()}
+                    </List.Item>
+                //     <IonItemOptions side="end" onIonSwipe={() => deleteDrink(i)}>
+                //         <IonItemOption color='danger' slot='icon-only' expandable={true} onClick={() => deleteDrink(i)}>
+                //             <IonIcon icon={trashBinSharp} />
+                //         </IonItemOption>
+                //     </IonItemOptions>
+                // </IonItemSliding>
             ))}
-        </IonList>
+        </List>
     )
 }

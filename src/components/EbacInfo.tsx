@@ -1,6 +1,14 @@
 import React from "react";
-
-import { IonNote } from '@ionic/react';
+import {
+    Button,
+    Container,
+    Form,
+    Icon,
+    Input,
+    Menu,
+    Message,
+    Segment,
+} from 'semantic-ui-react'
 
 // @ts-ignore
 import GaugeChart from 'react-gauge-chart'
@@ -16,15 +24,16 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
     const message = `${props.rampedEbac.toFixed(2)} ‰`
 
     const alertVariant = props.ebac < 0.7 ? 'secondary' : props.ebac < 1.0 ? 'warning' : 'danger'
-    const alertStyle = {
-        backgroundColor: `var(--ion-color-${alertVariant})`,
-        padding: '8px',
-        margin: '16px 0px',
-        textAlign: 'center' as const,
-    }
-    const alertTextStyle = {
-        color: `var(--ion-color-${alertVariant}-contrast)`
-    }
+    // const alertStyle = {
+    //     backgroundColor: `var(--ion-color-${alertVariant})`,
+    //     padding: '8px',
+    //     margin: '16px 0px',
+    //     textAlign: 'center' as const,
+    // }
+    // const alertTextStyle = {
+    //     color: `var(--ion-color-${alertVariant}-contrast)`
+    // }
+
     const ramping = props.rampedEbac + 0.005 < props.ebac
     const showAlert = ramping || alertVariant !== 'secondary'
 
@@ -46,12 +55,11 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
                 animate={true}
             />
 
+            {/* FIXME: Style */}
             {showAlert &&
-                <div style={alertStyle}>
-                    <IonNote style={alertTextStyle}>
+                    <Message>
                         {generateAlertMessage()}
-                    </IonNote>
-                </div>
+                    </Message>
             }
         </div>
     )

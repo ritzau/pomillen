@@ -1,20 +1,11 @@
 import React from 'react'
 
 import {
-    IonButton,
-    IonButtons,
-    IonContent,
-    IonHeader,
-    IonIcon,
-    IonPage,
-    IonTitle,
-    IonToolbar,
-} from '@ionic/react'
-
-import {
-    personCircleOutline,
-} from 'ionicons/icons'
-
+    Button,
+    Container,
+    Menu,
+    Segment,
+} from 'semantic-ui-react'
 
 import Shortcuts from "../components/Shortcuts"
 import DrinksList from "../components/DrinksList"
@@ -36,25 +27,25 @@ interface EbacHomeProps {
 }
 
 const EbacHome: React.FC<EbacHomeProps> = (props) => (
-    <IonPage>
-        <IonHeader>
-            <IonToolbar>
-                <IonTitle>Pomillen</IonTitle>
-                <IonButtons slot="primary">
-                    <IonButton href='#/config'>
-                        <IonIcon slot='icon-only' icon={personCircleOutline} />
-                    </IonButton>
-                </IonButtons>
-            </IonToolbar>
-        </IonHeader>
-        <IonContent>
-            <section className='ion-margin-top ion-padding-top'>
+    <>
+        <Segment inverted>
+            <Menu inverted={true} size='large'>
+                <Menu.Item header>
+                    Pomillen
+                    </Menu.Item>
+
+                <Menu.Item position='right'>
+                    <Button as='a' inverted icon='user circle' href='#/config' />
+                </Menu.Item>
+            </Menu>
+        </Segment>
+        <Container>
+            <section>
                 <EbacInfo
                     ebac={props.peakEbac}
                     rampedEbac={props.rampedEbac}
                     minutesToGreen={props.minutesToGreen} />
             </section>
-
             <section className='ion-margin-vertical'>
                 <Shortcuts
                     shortcuts={props.shortcuts}
@@ -67,8 +58,8 @@ const EbacHome: React.FC<EbacHomeProps> = (props) => (
                     drinks={props.drinks}
                     deleteDrink={props.deleteDrink} />
             </section>
-        </IonContent>
-    </IonPage>
+        </Container>
+    </>
 )
 
 export default EbacHome
