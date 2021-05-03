@@ -85,11 +85,24 @@ export function totalGramsOfAlcohol(drinks: Drink[]) {
     return sum(drinks.map(d => d.gramsOfAlcohol()))
 }
 
-export function ebacPeak(
-    { drinks, absorptionMinutes, millisSinceEpoch }
-        : { drinks: Drink[]; absorptionMinutes: number; millisSinceEpoch: number }
-): { peakTimeSinceEpoch: number, peakGrams: number } {
-    const timeOfPeak = Math.max(millisSinceEpoch, ...drinks.map(d => d.timestamp + millisFromMinutes(absorptionMinutes)))
-    const peakGrams = totalRampedGramsOfAlcohol({ millisSinceEpoch: timeOfPeak, drinks, absorptionMinutes })
+interface EbacPeakArgs {
+    drinks: Drink[]
+    absorptionMinutes: number
+    millisSinceEpoch: number
+}
+
+export function ebacPeak({ drinks, absorptionMinutes, millisSinceEpoch }: EbacPeakArgs)
+    : { peakTimeSinceEpoch: number, peakGrams: number }
+{
+    const timeOfPeak = Math.max(
+        millisSinceEpoch, 
+        ...drinks.map(d => d.timestamp + millisFromMinutes(absorptionMinutes)))
+
+    const peakGrams = totalRampedGramsOfAlcohol({
+        millisSinceEpoch: timeOfPeak, 
+        drinks, 
+        absorptionMinutes 
+    })
+
     return { peakTimeSinceEpoch: timeOfPeak, peakGrams }
 }

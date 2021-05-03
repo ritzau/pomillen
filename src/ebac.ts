@@ -1,8 +1,5 @@
-// Based on: Computing a BAC Estimate. National Highway Traffic Safety Administration. October, 1994.
-
-import {
-    hoursFromMillis,
-} from './utils'
+// Based on: 
+// Computing a BAC Estimate. National Highway Traffic Safety Administration. October, 1994.
 
 // Younger people have a higher proportion of body water as a fraction of their total weight, 
 // and older people have less. Overweight individuals have a smaller proportion of their body
@@ -13,6 +10,7 @@ import {
 // averaging 80.6%, but it varies as a function of several factors including the red blood cell
 // concentration measured by the hemocrit. But again, .806 is the average value, and deviations
 // typically are small.
+
 const BODY_WATER_RATIO_FEMALE = 0.49
 const BODY_WATER_RATIO_MALE = 0.58
 
@@ -23,6 +21,7 @@ const BODY_WATER_RATIO_MALE = 0.58
 // One can either utilize in the calculation the average (.017 per hour decline) metabolism
 // rate, or if one wished to use a very conservative figure, (which less than 20 percent of the
 // population would exhibit), one could use .012 per hour decline (here termed "Below Average")
+
 const BURN_RATE_FEMALE = 0.017 // 0.014 – 0.021
 const BURN_RATE_MALE = 0.015 // 0.013 – 0.017
 
@@ -74,7 +73,11 @@ export default class EbacProfile {
     }
 
     public minutesToGreen(ebacPermillage: number) {
-        return minutesToGreen({ ebac: ebacPermillage, burnRate: this.burnRatePerHour, greenLevel: this.greenLevelPermillage })
+        return minutesToGreen({ 
+            ebac: ebacPermillage, 
+            burnRate: this.burnRatePerHour, 
+            greenLevel: this.greenLevelPermillage
+        })
     }
 }
 

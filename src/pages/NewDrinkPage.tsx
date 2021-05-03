@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 
 import {
-    IonBackButton,
-    IonButton,
-    IonButtons,
-    IonContent,
-    IonHeader,
-    IonInput,
-    IonItem,
-    IonLabel,
-    IonList,
-    IonNote,
-    IonPage,
-    IonText,
-    IonTitle,
-    IonToolbar,
-} from '@ionic/react';
+    AppBar,
+    IconButton,
+    Grid,
+    Toolbar,
+    Typography,
+    TextField,
+    Container,
+    InputAdornment,
+    Button,
+} from '@material-ui/core'
+
+import {
+    useHistory,
+} from "react-router-dom"
+
+import ArrowBackIcon from '@material-ui/icons/ArrowBackIos'
+
+import useStyles from "../theme/styles";
 
 interface NewDrinkProps {
     addDrink: (volumeCl: number, alcoholPercentage: number) => void
@@ -23,93 +26,98 @@ interface NewDrinkProps {
     calculateEbac: (volume: number, alcoholPercentage: number) => number
 }
 
-const NewDrinkPage: React.FC<NewDrinkProps> = ({addDrink, ebac, calculateEbac}: NewDrinkProps) => {
+const NewDrinkPage: React.FC<NewDrinkProps> = (props) => {
+    const classes = useStyles()
+    const history = useHistory()
+
     const [volumeString, setVolume] = useState('');
     const [percentageString, setPercentage] = useState('');
-    const [hideHint, setHideHint] = useState(false);
 
     const volume = Number.parseFloat(volumeString);
     const percentage = Number.parseFloat(percentageString);
     const disabled = isNaN(volume) || isNaN(percentage);
 
-    const leveledEbac = disabled ? ebac : calculateEbac(volume, percentage);
-
-    let hintClass = 'ion-text-center'
-    if (hideHint) {
-        hintClass += ' ion-hide'
-    }
-
     function add() {
-        setHideHint(true)
-        addDrink(volume, percentage)
+        props.addDrink(volume, percentage)
+        history.goBack()
     }
 
     return (
-        <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonButtons slot="start">
-                        <IonBackButton defaultHref='/' />
-                    </IonButtons>
-                    <IonTitle>Lägg till dricka</IonTitle>
-                </IonToolbar>
-            </IonHeader>
-            <IonContent>
-                <section className='ion-margin-vertical'>
-                    <IonList>
-                        <IonItem>
-                            <IonInput
-                                placeholder="Hur mycket tänker du bälja i dig?"
+        <>
+            <AppBar position='static'>
+            <Toolbar variant='dense'>
+                    <IconButton 
+                        edge='start' 
+                        color='inherit' 
+                        onClick={history.goBack}
+                        className={classes.menuButton} 
+                        >
+                        <ArrowBackIcon />
+                    </IconButton>
+                    <Typography variant='h6' color='inherit'>Lägg till dricka</Typography>
+                </Toolbar>
+            </AppBar>
+
+            <main className={classes.content}>
+                <Container>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                label='Hur mycket'
+                                placeholder='Hur mycket tänker du bälja i dig?'
                                 aria-label="Dryckens volym i centiliter"
-                                aria-describedby={'volumeUnit'}
-                                type="number"
-                                min={'0'}
+                                type='number'
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position='end'>
+                                            cl
+                                        </InputAdornment>
+                                    ),
+                                    // XXX min: '0',
+                                }}
                                 value={volumeString}
-                                onIonChange={e => setVolume(e.detail.value!)}
+                                onChange={e => setVolume(e.target.value)}
                             />
-                            <IonLabel color="medium">cl</IonLabel>
-                        </IonItem>
-                        <IonItem>
-                            <IonInput
-                                placeholder="Hur stark är drycken?"
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                label='Hur stark'
+                                placeholder='Hur stark är drycken?'
                                 aria-label="Dryckens alkolholhalt i procent"
-                                aria-describedby={'percentageUnit'}
-                                type="number"
-                                min={'0'}
+                                type='number'
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position='end'>
+                                            %
+                                        </InputAdornment>
+                                    ),
+                                    // XXX min: '0',
+                                }}
                                 value={percentageString}
-                                onIonChange={e => setPercentage(e.detail.value!)}
+                                onChange={e => setPercentage(e.target.value)}
                             />
-                            <IonLabel color="medium">%</IonLabel>
-                        </IonItem>
-                    </IonList>
-                </section>
+                        </Grid>
 
-                <section className='ion-margin'>
-                    <IonButton expand='block' fill='solid' color='secondary' disabled={disabled} href="/" onClick={add}>
-                        Lägg till
-                    </IonButton>
-
-                    <div className={hintClass}>
-                        <IonNote color='medium'>
-                            Dricker du detta kommer du levla till <IonText color={ebacLevel(leveledEbac)}>{leveledEbac.toFixed(2)}&nbsp;&permil;</IonText>
-                        </IonNote>
-                    </div>
-                </section>
-            </IonContent>
-        </IonPage >
+                        <Grid item xs={12}>
+                            <Button 
+                                color='default'
+                                variant='contained' 
+                                fullWidth 
+                                disabled={disabled} 
+                                onClick={add} 
+                                >
+                                Lägg till
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Container>
+            </main>
+        </>
     );
 }
 
 export default NewDrinkPage
 
-function ebacLevel(ebac: number) {
-    if (ebac < 0.2) {
-        return "dark";
-    } else if (ebac < 0.7) {
-        return "success";
-    } else if (ebac < 1.0) {
-        return "warning";
-    } else {
-        return "danger";
-    }
-}

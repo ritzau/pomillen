@@ -1,27 +1,18 @@
 import React, { useState, useEffect } from 'react'
 
-import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
-import { IonReactHashRouter } from '@ionic/react-router';
+import {
+    HashRouter as Router,
+    Redirect,
+    Route,
+    Switch,
+} from 'react-router-dom';
 
-/* Core CSS required for Ionic components to work properly */
-import '@ionic/react/css/core.css';
-
-/* Basic CSS for apps built with Ionic */
-import '@ionic/react/css/normalize.css';
-import '@ionic/react/css/structure.css';
-import '@ionic/react/css/typography.css';
-
-/* Optional CSS utils that can be commented out */
-import '@ionic/react/css/padding.css';
-import '@ionic/react/css/float-elements.css';
-import '@ionic/react/css/text-alignment.css';
-import '@ionic/react/css/text-transformation.css';
-import '@ionic/react/css/flex-utils.css';
-import '@ionic/react/css/display.css';
-
-/* Theme variables */
-import './theme/variables.css';
+import {
+    createMuiTheme,
+    CssBaseline,
+    ThemeProvider,
+    useMediaQuery,
+} from '@material-ui/core';
 
 import {
     Drink,
@@ -36,22 +27,11 @@ import EbacProfile from './ebac'
 import SettingsPage from './pages/SettingsPage'
 import NewDrinkPage from './pages/NewDrinkPage'
 import { ProfileContext } from './contexts'
-import { hoursFromMillis, millisFromHours } from './utils';
-
-// import './App.css'
+import { hoursFromMillis } from './utils';
+import useStyles from './theme/styles';
+import createPomillenTheme from './theme/theme';
 
 const DEFAULT_ABSORPTION_MINUTES = 30
-
-function loadStartTime(): number {
-    let item = localStorage.getItem('startTime')
-    if (item === null) {
-        let now = Date.now()
-        localStorage.setItem('startTime', now.toString())
-        return now
-    }
-
-    return Number.parseInt(item)
-}
 
 function loadDrinks(): Drink[] {
     let item = localStorage.getItem('drinks')
@@ -73,11 +53,21 @@ function loadShortCuts() {
 }
 
 const App: React.FC = () => {
+    const classes = useStyles()
+
     const [profile, setProfile] = useState(
         EbacProfile.CreateFrom(
             EbacProfile.CreateOtherProfile(72),
             JSON.parse(localStorage.getItem('profile') || "{}")
         ))
+
+    const prefersLightMode = useMediaQuery('(prefers-color-scheme: light)');
+
+    // TODO: add support for user prefs in app
+    const theme = React.useMemo(
+        () => createPomillenTheme(prefersLightMode),
+        [prefersLightMode],
+    );
 
     const [drinks, setDrinksState] = useState(loadDrinks())
     const [shortcuts, setShortcuts] = useState(loadShortCuts())
@@ -85,7 +75,7 @@ const App: React.FC = () => {
     const [foo, setFoo] = useState(0)
 
     useEffect(() => {
-        const timer = setInterval(() => setFoo(foo + 1), 100)
+        const timer = setInterval(() => setFoo(foo + 1), 1000)
         return () => clearInterval(timer)
     })
 
@@ -108,6 +98,12 @@ const App: React.FC = () => {
     })
     const rampedEbac = profile.ebac(rampedAlcoholGrams, hoursPassed)
 
+    function reset() {
+        localStorage.clear()
+        setDrinks([])
+        setShortcuts([])
+    }
+
     function addDrink(volumeCl: number, alcoholPercent: number) {
         setDrinks([...drinks, new Drink(Date.now(), volumeCl, alcoholPercent)])
 
@@ -122,6 +118,10 @@ const App: React.FC = () => {
 
     function deleteDrink(index: number) {
         setDrinks(drinks.filter((_, i) => i !== index))
+    }
+
+    function deleteAllDrinks() {
+        setDrinks([])
     }
 
     function setDrinks(drinks: Drink[]) {
@@ -140,40 +140,44 @@ const App: React.FC = () => {
     }
 
     return (
-        <ProfileContext.Provider value={{value: profile, set: updateProfile}}>
-            <IonApp>
-                <IonReactHashRouter>
-                    <IonRouterOutlet>
-                        <Route exact path="/home">
-                            <EbacHome 
-                                ebac={ebac}
-                                peakEbac={peakEbac}
-                                rampedEbac={rampedEbac}
-                                minutesToGreen={profile.minutesToGreen(ebac)}
-                                shortcuts={shortcuts}
-                                drinks={drinks}
-                                addDrink={addDrink}
-                                deleteDrink={deleteDrink}
-                                calculateEbac={calculateEbacX}
+        <ThemeProvider theme={theme}>
+            <ProfileContext.Provider value={{ value: profile, set: updateProfile }}>
+                <CssBaseline />
+                <div className={classes.root}>
+                    <Router>
+                        <Switch>
+                            <Route exact path="/home">
+                                <EbacHome
+                                    ebac={ebac}
+                                    peakEbac={peakEbac}
+                                    rampedEbac={rampedEbac}
+                                    minutesToGreen={profile.minutesToGreen(ebac)}
+                                    shortcuts={shortcuts}
+                                    drinks={drinks}
+                                    addDrink={addDrink}
+                                    deleteDrink={deleteDrink}
+                                    deleteAllDrinks={deleteAllDrinks}
+                                    calculateEbac={calculateEbacX}
                                 />
-                        </Route>
-                        <Route exact path="/add">
-                            <NewDrinkPage 
-                                addDrink={addDrink} 
-                                ebac={rampedEbac} 
-                                calculateEbac={calculateEbacX} 
+                            </Route>
+                            <Route exact path="/add">
+                                <NewDrinkPage
+                                    addDrink={addDrink}
+                                    ebac={rampedEbac}
+                                    calculateEbac={calculateEbacX}
                                 />
-                        </Route>
-                        <Route exact path="/">
-                            <Redirect to="/home" />
-                        </Route>
-                        <Route exact path="/config">
-                            <SettingsPage />
-                        </Route>
-                    </IonRouterOutlet>
-                </IonReactHashRouter>
-            </IonApp>
-        </ProfileContext.Provider>
+                            </Route>
+                            <Route exact path="/">
+                                <Redirect to="/home" />
+                            </Route>
+                            <Route exact path="/config">
+                                <SettingsPage reset={reset} />
+                            </Route>
+                        </Switch>
+                    </Router>
+                </div>
+            </ProfileContext.Provider>
+        </ThemeProvider>
     )
 }
 

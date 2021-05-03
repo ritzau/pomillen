@@ -1,7 +1,0 @@
-{
-  "name": "myIonicApp",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "react"
-}
