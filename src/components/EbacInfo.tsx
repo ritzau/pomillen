@@ -7,11 +7,14 @@ import {
     Grid,
 } from '@material-ui/core'
 
+import clsx from 'clsx'
+
 import useStyles from "../theme/styles";
 
 // @ts-ignore
 import GaugeChart from 'react-gauge-chart'
 import { clamp } from "../utils";
+import classes from "*.module.css";
 
 interface EbacInfoProps {
     ebac: number
@@ -20,25 +23,43 @@ interface EbacInfoProps {
 }
 
 const EbacInfo: React.FC<EbacInfoProps> = (props) => {
+    const classes = useStyles()
     const theme = useTheme()
 
-    const value = Math.min(1.6, props.rampedEbac)
+    const value = Math.min(1.666, props.rampedEbac)
+    const peak = Math.min(1.666, props.ebac)
     const message = props.rampedEbac > 1.6 ? '¯\_(ツ)_/¯' : `${value.toFixed(2)} ‰`
 
     return (
         <div>
-            <GaugeChart
-                id={'ebacGauge'}
-                percent={value / 1.6}
-                formatTextValue={() => message}
-                textColor={theme.palette.text.primary}
-                arcsLength={[0.4, 0.2, 0.4, 0.2, 0.4]}
-                colors={["#FF0000", "#FFFF00", "#00FF00", "#FFFF00", "#FF0000"]}
-                arcPadding={0.03}
+            <div style={{position: 'relative'}}>
+                <div style={{position: 'relative', zIndex: 10}}>
+                    <GaugeChart
+                        id={'ebacGauge'}
+                        percent={value / 1.6}
+                        formatTextValue={() => message}
+                        textColor={theme.palette.text.primary}
+                        arcsLength={[0.4, 0.2, 0.4, 0.2, 0.4]}
+                        colors={["#f00b", "#ff0b", "#0f0b", "#ff0b", "#f00b"]}
+                        arcPadding={0.04}
+                        cornerRadius={4}
 
-                animDelay={0}
-                animate={true}
-            />
+                        animDelay={0}
+                        animate={true}
+                        />
+                </div>
+                <div style={{position: 'absolute', left: 0, top: 0, right: 0, bottom: 0, zIndex: 5}} className={clsx(Math.abs(peak - value) < 0.005 && classes.hidden)}>
+                    <GaugeChart
+                        id={'ebacGauge-peak'}
+                        percent={peak / 1.6}
+                        colors={["#0000"]}
+                        hideText={true}
+                        needleColor={'#f808'}
+                        animDelay={0}
+                        animate={true}
+                        />
+                </div>
+            </div>
 
             {AlertMessage(props.rampedEbac, props.ebac)}
         </div>
@@ -46,49 +67,26 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
 
     function AlertMessage(rampingEbac: number, peakEbac: number): ReactNode {
         const ramping = rampingEbac + 0.005 < peakEbac
-        const formattedEbac = peakEbac.toFixed(2)
 
         let variant: 'info' | 'success' | 'warning' | 'danger'
         let message: ReactNode
 
         if (peakEbac < 0.6) {
-            if (ramping) {
-                variant = 'info'
-                message = <span>Kämpa på! Du är på väg emot {formattedEbac}&nbsp;&permil;.</span>
-            }
-            else {
-                variant = 'info'
-                message = <span>Här händer det inte så mycket idag</span>
-            }
+            variant = 'info'
+            message = null
         }
         else if (peakEbac < 1.0) {
             variant = 'success'
-            if (ramping) {
-                message = <span>Du är på väg emot {formattedEbac}&nbsp;&permil;.</span>
-            }
-            else {
-                message = <span>Allt är precis som det ska va.</span>
-            }
+            message = null
         }
         else if (peakEbac < 1.2) {
             variant = 'warning'
-            if (ramping) {
-                message = <span>Du är på väg emot {formattedEbac}&nbsp;&permil;!</span>
-            }
-            else {
-                // FIXME: Lägg till tid till vad?
-                message = <span>Läge att ta det lugnt ett tag!</span>
-            }
+            message = <span>Det räcker nu</span>
         }
         else {
             variant = 'danger'
-            if (ramping) {
-                message = <span>Du är på väg emot {formattedEbac}&nbsp;&permil;!!!</span>
-            }
-            else {
-                // FIXME: Lägg till tid till vad?
-                message = <span>Läge att ta det lugnt ett tag!!!</span>
-            }
+            // FIXME: Lägg till tid till vad?
+            message = <span>Lägg ner&hellip;</span>
         }
 
         return (
@@ -98,11 +96,20 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
                         {emojiFromLevel(rampingEbac)}
                     </Typography>
                 </Grid>
-                <Grid item>
-                    <Typography variant='body1' display='inline'>
-                        {message}
-                    </Typography>
-                </Grid>
+                {message !== null &&
+                    <>
+                        <Grid item>
+                            <Typography variant='body1' display='inline'>
+                                {message}
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant='h3' display='inline'>
+                                {emojiFromLevel(peakEbac)}
+                            </Typography>
+                        </Grid>
+                    </>
+                }
             </Message>
         )
     }

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
     dangerMessage: {
         color: theme.palette.error.main,
-        padding: theme.spacing(3)
+        padding: theme.spacing(2)
     },
     deleteButton: {
         color: theme.palette.error.contrastText,
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
     infoMessage: {
         color: theme.palette.text.primary,
-        padding: theme.spacing(3)
+        padding: theme.spacing(2)
     },
     listIconButton: {
         padding: 0,
@@ -51,14 +51,14 @@ const useStyles = makeStyles((theme) => ({
     },
     successMessage: {
         color: theme.palette.success.main,
-        padding: theme.spacing(3)
+        padding: theme.spacing(2)
     },
     title: {
         flexGrow: 1,
     },
     warningMessage: {
         color: theme.palette.warning.main,
-        padding: theme.spacing(3)
+        padding: theme.spacing(2)
     },
 }));
 
