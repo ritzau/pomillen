@@ -47,7 +47,6 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
     function AlertMessage(rampingEbac: number, peakEbac: number): ReactNode {
         const ramping = rampingEbac + 0.005 < peakEbac
         const formattedEbac = peakEbac.toFixed(2)
-        const formattedMinutes = Math.ceil(props.minutesToGreen)
 
         let variant: 'info' | 'success' | 'warning' | 'danger'
         let message: ReactNode
