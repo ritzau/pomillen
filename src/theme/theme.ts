@@ -18,6 +18,7 @@ export default function createPomillenTheme(prefersLightMode: boolean) {
                 'BlinkMacSystemFont',
                 'Lato',
                 'Roboto',
+                'Helvetica',
                 'sans-serif',
             ].join(','),
         }
