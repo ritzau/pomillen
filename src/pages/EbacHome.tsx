@@ -1,17 +1,14 @@
 import React from 'react'
 
-import { Link } from "react-router-dom"
 
 import {
     AppBar,
     Container,
     Grid,
-    IconButton,
     Toolbar,
     Typography
 } from '@material-ui/core'
 
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import useStyles from '../theme/styles'
 
@@ -19,6 +16,7 @@ import Shortcuts from "../components/Shortcuts"
 import DrinksList from "../components/DrinksList"
 import EbacInfo from "../components/EbacInfo"
 import { Drink } from "../Drink"
+import { MainMenu } from '../components/MainMenu';
 
 interface EbacHomeProps {
     ebac: number
@@ -47,10 +45,8 @@ const EbacHome: React.FC<EbacHomeProps> = (props) => {
                     <Typography className={classes.title} variant='h6' color='inherit'>
                         Pomillen
                     </Typography>
-                    
-                    <IconButton component={Link} to='/config' color='inherit' >
-                        <AccountCircleIcon />
-                    </IconButton>
+
+                    <MainMenu />
                 </Toolbar>
             </AppBar>
 

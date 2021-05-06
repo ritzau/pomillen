@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-
+import AuthStateApp from './AuthStateApp';
 ReactDOM.render(
   <React.StrictMode>
-      <App />
+      <AuthStateApp/>
   </React.StrictMode>,
   document.getElementById('root')
 );
