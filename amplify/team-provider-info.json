@@ -1,0 +1,26 @@
+{
+    "staging": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-pomillen-staging-114128-authRole",
+            "UnauthRoleArn": "arn:aws:iam::582127767537:role/amplify-pomillen-staging-114128-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::582127767537:role/amplify-pomillen-staging-114128-authRole",
+            "Region": "eu-central-1",
+            "DeploymentBucketName": "amplify-pomillen-staging-114128-deployment",
+            "UnauthRoleName": "amplify-pomillen-staging-114128-unauthRole",
+            "StackName": "amplify-pomillen-staging-114128",
+            "StackId": "arn:aws:cloudformation:eu-central-1:582127767537:stack/amplify-pomillen-staging-114128/d7ddda60-a428-11eb-a876-029d146fede2",
+            "AmplifyAppId": "d1zrx1r0z38jeg"
+        },
+        "categories": {
+            "auth": {
+                "Pomillen": {}
+            },
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d1zrx1r0z38jeg",
+                    "type": "manual"
+                }
+            }
+        }
+    }
+}
