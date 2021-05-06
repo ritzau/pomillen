@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react"
+import React, { ReactNode, useContext } from "react"
 
 import {
     Typography,
@@ -14,7 +14,6 @@ import useStyles from "../theme/styles";
 // @ts-ignore
 import GaugeChart from 'react-gauge-chart'
 import { clamp } from "../utils";
-import classes from "*.module.css";
 
 interface EbacInfoProps {
     ebac: number
