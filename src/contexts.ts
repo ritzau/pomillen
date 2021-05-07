@@ -11,6 +11,6 @@ export const ProfileContext = React.createContext({
 
 export const AuthContext = React.createContext({
     state: undefined as AuthState | undefined,
-    user: undefined as object | undefined, 
+    user: undefined as any | undefined, 
     setLogIn: (_: boolean) => {},
 });

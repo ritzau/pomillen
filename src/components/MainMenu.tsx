@@ -37,6 +37,7 @@ export function MainMenu() {
     };
 
     const isLoggedIn = auth.state === AuthState.SignedIn && Boolean(auth.user);
+    const username = auth.user?.attributes?.nickname ?? ''
 
     return (
         <div>
@@ -56,7 +57,7 @@ export function MainMenu() {
                 <Divider />
 
                 {isLoggedIn
-                    ? <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                    ? <MenuItem onClick={handleLogout}>Logout {username}</MenuItem>
                     : <MenuItem onClick={handleLogin}>Login</MenuItem>}
             </Menu>
         </div>
