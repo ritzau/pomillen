@@ -10,6 +10,7 @@ import {
 import { AuthState } from '@aws-amplify/ui-components';
 import { AuthContext } from '../contexts';
 import { VikingIcon } from '../icons';
+import Auth from '@aws-amplify/auth';
 
 export function MainMenu() {
     const auth = useContext(AuthContext);
@@ -26,6 +27,12 @@ export function MainMenu() {
 
     const handleLogin = (event: React.MouseEvent<HTMLElement>) => {
         auth.setLogIn(true);
+        handleClose();
+    };
+
+    const handleLogout = (event: React.MouseEvent<HTMLElement>) => {
+        auth.setLogIn(false);
+        Auth.signOut()
         handleClose();
     };
 
@@ -49,7 +56,7 @@ export function MainMenu() {
                 <Divider />
 
                 {isLoggedIn
-                    ? <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    ? <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     : <MenuItem onClick={handleLogin}>Login</MenuItem>}
             </Menu>
         </div>
