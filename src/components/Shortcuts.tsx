@@ -9,15 +9,13 @@ import { Link } from "react-router-dom"
 
 import useStyles from "../theme/styles";
 
-interface Shortcuts {
+interface ShortcutProps {
     shortcuts: number[][]
     calculateEbac: (cl: number, pct: number) => number
     addDrink: (cl: number, pct: number) => void
 }
 
-const Shortcuts: React.FC<Shortcuts> = (props) => {
-    const classes = useStyles()
-
+const Shortcuts: React.FC<ShortcutProps> = (props) => {
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions())
 
     useEffect(() => {

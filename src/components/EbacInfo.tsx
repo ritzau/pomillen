@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext } from "react"
+import React, { ReactNode } from "react"
 
 import {
     Typography,
@@ -27,7 +27,7 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
 
     const value = Math.min(1.666, props.rampedEbac)
     const peak = Math.min(1.666, props.ebac)
-    const message = props.rampedEbac > 1.6 ? '¯\_(ツ)_/¯' : `${value.toFixed(2)} ‰`
+    const message = props.rampedEbac > 1.6 ? '¯\\_(ツ)_/¯' : `${value.toFixed(2)} ‰`
 
     return (
         <div>
@@ -65,8 +65,6 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
     )
 
     function AlertMessage(rampingEbac: number, peakEbac: number): ReactNode {
-        const ramping = rampingEbac + 0.005 < peakEbac
-
         let variant: 'info' | 'success' | 'warning' | 'danger'
         let message: ReactNode
 

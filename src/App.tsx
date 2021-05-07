@@ -8,7 +8,6 @@ import {
 } from 'react-router-dom';
 
 import {
-    createMuiTheme,
     CssBaseline,
     ThemeProvider,
     useMediaQuery,
@@ -31,7 +30,6 @@ import { hoursFromMillis } from './utils';
 import useStyles from './theme/styles';
 import createPomillenTheme from './theme/theme';
 
-const DEFAULT_ABSORPTION_MINUTES = 30
 
 function loadDrinks(): Drink[] {
     let item = localStorage.getItem('drinks')
