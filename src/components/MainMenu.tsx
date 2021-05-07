@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { Link } from "react-router-dom";
 import {
     Divider,
-
     IconButton,
     Menu,
     MenuItem
@@ -25,12 +24,12 @@ export function MainMenu() {
         setAnchorElement(null);
     };
 
-    const handleLogin = (event: React.MouseEvent<HTMLElement>) => {
+    const handleLogin = (_event: React.MouseEvent<HTMLElement>) => {
         auth.setLogIn(true);
         handleClose();
     };
 
-    const handleLogout = (event: React.MouseEvent<HTMLElement>) => {
+    const handleLogout = (_event: React.MouseEvent<HTMLElement>) => {
         auth.setLogIn(false);
         Auth.signOut()
         handleClose();
