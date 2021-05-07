@@ -48,18 +48,26 @@ const DrinksList: React.FC<DrinksListProps> = (props) => {
         </Button>
     )
 
+    function formatTime(d: Date): string {
+        const hours = d.getHours().toString().padStart(2, '0')
+        const mins = d.getMinutes().toString().padStart(2, '0')
+
+        return `${hours}.${mins}`
+    }
+
     const DrinksTable = () => (
         <TableContainer className={classes.containedTable}>
             <Table>
                 <TableHead>
                     <TableRow>
+                        <TableCell>Tid</TableCell>
                         <TableCell align='right'>Cl</TableCell>
                         <TableCell align='right'>%</TableCell>
                         <TableCell align='right'>
                             <IconButton 
                                 onClick={deleteAllDrinks}
                                 className={clsx(classes.listIconButton, editMode || classes.hidden)}
-                                >
+                            >
                                 <ClearAllIcon color='error' />
                             </IconButton>
                         </TableCell>
@@ -68,11 +76,14 @@ const DrinksList: React.FC<DrinksListProps> = (props) => {
                 <TableBody>
                     {props.drinks.map((d, i) => (
                         <TableRow key={d.timestamp}>
-                            <TableCell align='right'>
-                                {d.volumeCl.toFixed(0)}
+                            <TableCell>
+                                {formatTime(new Date(d.timestamp))}
                             </TableCell>
                             <TableCell align='right'>
-                                {d.alcoholPercent.toFixed(d.alcoholPercent < 10 ? 1 : 0)}
+                                {d.volumeCl.toFixed(0)}&nbsp;cl
+                            </TableCell>
+                            <TableCell align='right'>
+                                {d.alcoholPercent.toFixed(d.alcoholPercent < 10 ? 1 : 0)}&nbsp;%
                             </TableCell>
                             <TableCell align='right'>
                                 <IconButton 
