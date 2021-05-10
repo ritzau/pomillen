@@ -1,13 +1,13 @@
-import React, { useContext } from 'react'
+import React, { useContext } from "react"
 
 import {
     AmplifyAuthenticator,
     AmplifyButton,
     AmplifySignIn
-} from '@aws-amplify/ui-react'
+} from "@aws-amplify/ui-react"
 
-import { AuthContext } from '../contexts'
-import useStyle from '../theme/styles'
+import { AuthContext } from "../pomillen/contexts"
+import useStyle from "../theme/styles"
 
 const LoginPage: React.FC = () => {
     const classes = useStyle()
@@ -20,8 +20,8 @@ const LoginPage: React.FC = () => {
                 slot="sign-in"
             >
                 <AmplifyButton
-                    slot='secondary-footer-content'
-                    variant='anchor'
+                    slot="secondary-footer-content"
+                    variant="anchor"
                     handleButtonClick={() => auth.setLogIn(false)}
                     className={classes.signInSecondaryButton}
                 >

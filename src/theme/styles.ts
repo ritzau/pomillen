@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from "@material-ui/core/styles"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,18 +16,18 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2)
     },
     deleteButton: {
-        color: theme.palette.error.contrastText,
-        backgroundColor: theme.palette.error.main,
+        color: `${theme.palette.error.contrastText} !important`,
+        backgroundColor: `${theme.palette.error.main} !important`,
     },
     formButton: {
-        float: 'right',
+        float: "right",
     },
     formSlider: {
         marginTop: theme.spacing(4),
         color: theme.palette.secondary.dark,
     },
     hidden: {
-        visibility: 'hidden',
+        visibility: "hidden",
     },
     infoMessage: {
         color: theme.palette.text.primary,
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(2),
     },
     message: {
-        padding: theme.spacing(3),
+        padding: `${theme.spacing(3)} !important`,
     },
     section: {
         marginTop: theme.spacing(4),
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: theme.spacing(2),
     },
     shortcutButton: {
-        height: '100%',
+        height: "100%",
     },
     successMessage: {
         color: theme.palette.success.main,
@@ -65,6 +65,6 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.warning.main,
         padding: theme.spacing(2)
     },
-}));
+}))
 
 export default useStyles

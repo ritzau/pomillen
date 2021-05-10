@@ -31,14 +31,25 @@ const DEFAULT_GREEN_LEVEL_PERMILLAGE = 0.7
 const DEFAULT_ABSORPTION_MINUTES = 20
 
 export default class EbacProfile {
-    public static CreateOtherProfile(bodyWeight: number): EbacProfile {
+    public static CreateOtherProfile(bodyWeight: number = 100): EbacProfile {
         return new EbacProfile(
             bodyWeight,
             (BODY_WATER_RATIO_FEMALE + BODY_WATER_RATIO_MALE) / 2,
             WATER_TO_BLOOD_RATIO,
             (BURN_RATE_FEMALE + BURN_RATE_MALE) / 2,
             DEFAULT_GREEN_LEVEL_PERMILLAGE,
-            DEFAULT_ABSORPTION_MINUTES);
+            DEFAULT_ABSORPTION_MINUTES)
+    }
+
+    public static CreateFromProps(props: any) {        
+        return new EbacProfile(
+            props.bodyWeight,
+            props.bodyWaterRatio,
+            props.waterToBloodRatio,
+            props.burnRatePerHour,
+            props.greenLevelPermillage,
+            props.absorptionMinutes,
+        )
     }
 
     public static CreateFrom(profile: EbacProfile, props: any) {        

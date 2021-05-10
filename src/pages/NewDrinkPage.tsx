@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react"
+
+import {
+    useHistory,
+} from "react-router-dom"
 
 import {
     AppBar,
@@ -10,51 +14,46 @@ import {
     Container,
     InputAdornment,
     Button,
-} from '@material-ui/core'
+} from "@material-ui/core"
 
-import {
-    useHistory,
-} from "react-router-dom"
+import ArrowBackIcon from "@material-ui/icons/ArrowBackIos"
 
-import ArrowBackIcon from '@material-ui/icons/ArrowBackIos'
+import { Drink } from "../pomillen/Drink"
+import { PomillenContext } from "../pomillen/contexts"
+import useStyles from "../theme/styles"
 
-import useStyles from "../theme/styles";
 
-interface NewDrinkProps {
-    addDrink: (volumeCl: number, alcoholPercentage: number) => void
-    ebac: number
-    calculateEbac: (volume: number, alcoholPercentage: number) => number
-}
-
-const NewDrinkPage: React.FC<NewDrinkProps> = (props) => {
+const NewDrinkPage: React.FC = () => {
     const classes = useStyles()
     const history = useHistory()
 
-    const [volumeString, setVolume] = useState('');
-    const [percentageString, setPercentage] = useState('');
+    const pomillenDrinks = useContext(PomillenContext)
 
-    const volume = Number.parseFloat(volumeString);
-    const percentage = Number.parseFloat(percentageString);
-    const disabled = isNaN(volume) || isNaN(percentage);
+    const [volumeString, setVolume] = useState("")
+    const [percentageString, setPercentage] = useState("")
+
+    const volume = Number.parseFloat(volumeString)
+    const percentage = Number.parseFloat(percentageString)
+    const disabled = isNaN(volume) || isNaN(percentage)
 
     function add() {
-        props.addDrink(volume, percentage)
+        pomillenDrinks.addDrink(new Drink(Date.now(), volume, percentage))
         history.goBack()
     }
 
     return (
         <>
-            <AppBar position='static'>
-            <Toolbar variant='dense'>
+            <AppBar position="static">
+            <Toolbar variant="dense">
                     <IconButton 
-                        edge='start' 
-                        color='inherit' 
+                        edge="start" 
+                        color="inherit" 
                         onClick={history.goBack}
                         className={classes.menuButton} 
                         >
                         <ArrowBackIcon />
                     </IconButton>
-                    <Typography variant='h6' color='inherit'>Lägg till dricka</Typography>
+                    <Typography variant="h6" color="inherit">Lägg till dricka</Typography>
                 </Toolbar>
             </AppBar>
 
@@ -64,17 +63,17 @@ const NewDrinkPage: React.FC<NewDrinkProps> = (props) => {
                         <Grid item xs={12}>
                             <TextField
                                 fullWidth
-                                label='Hur mycket'
-                                placeholder='Hur mycket tänker du bälja i dig?'
+                                label="Hur mycket"
+                                placeholder="Hur mycket tänker du bälja i dig?"
                                 aria-label="Dryckens volym i centiliter"
-                                type='number'
+                                type="number"
                                 InputProps={{
                                     endAdornment: (
-                                        <InputAdornment position='end'>
+                                        <InputAdornment position="end">
                                             cl
                                         </InputAdornment>
                                     ),
-                                    // XXX min: '0',
+                                    // XXX min: "0",
                                 }}
                                 value={volumeString}
                                 onChange={e => setVolume(e.target.value)}
@@ -84,17 +83,17 @@ const NewDrinkPage: React.FC<NewDrinkProps> = (props) => {
                         <Grid item xs={12}>
                             <TextField
                                 fullWidth
-                                label='Hur stark'
-                                placeholder='Hur stark är drycken?'
+                                label="Hur stark"
+                                placeholder="Hur stark är drycken?"
                                 aria-label="Dryckens alkolholhalt i procent"
-                                type='number'
+                                type="number"
                                 InputProps={{
                                     endAdornment: (
-                                        <InputAdornment position='end'>
+                                        <InputAdornment position="end">
                                             %
                                         </InputAdornment>
                                     ),
-                                    // XXX min: '0',
+                                    // XXX min: "0",
                                 }}
                                 value={percentageString}
                                 onChange={e => setPercentage(e.target.value)}
@@ -103,8 +102,8 @@ const NewDrinkPage: React.FC<NewDrinkProps> = (props) => {
 
                         <Grid item xs={12}>
                             <Button 
-                                color='default'
-                                variant='contained' 
+                                color="default"
+                                variant="contained" 
                                 fullWidth 
                                 disabled={disabled} 
                                 onClick={add} 
@@ -116,8 +115,7 @@ const NewDrinkPage: React.FC<NewDrinkProps> = (props) => {
                 </Container>
             </main>
         </>
-    );
+    )
 }
 
 export default NewDrinkPage
-

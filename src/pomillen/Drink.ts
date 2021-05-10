@@ -3,7 +3,7 @@ import {
     millisFromMinutes,
     minutesFromMillis,
     sum,
-} from './utils'
+} from "./utils"
 
 export class Drink {
     constructor(

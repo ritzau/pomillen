@@ -2,18 +2,18 @@ import React, { ReactNode } from "react"
 
 import {
     Typography,
-    Paper,
     useTheme,
     Grid,
-} from '@material-ui/core'
+} from "@material-ui/core"
 
-import clsx from 'clsx'
+import clsx from "clsx"
+import GaugeChart from "react-gauge-chart"
 
-import useStyles from "../theme/styles";
+import { clamp } from "../pomillen/utils"
+import { useIntervallRefresh } from "../pomillen/hooks"
+import Message from "./Message"
+import useStyles from "../theme/styles"
 
-// @ts-ignore
-import GaugeChart from 'react-gauge-chart'
-import { clamp } from "../utils";
 
 interface EbacInfoProps {
     ebac: number
@@ -22,19 +22,21 @@ interface EbacInfoProps {
 }
 
 const EbacInfo: React.FC<EbacInfoProps> = (props) => {
+    useIntervallRefresh(1000)
+
     const classes = useStyles()
     const theme = useTheme()
 
     const value = Math.min(1.666, props.rampedEbac)
     const peak = Math.min(1.666, props.ebac)
-    const message = props.rampedEbac > 1.6 ? '¯\\_(ツ)_/¯' : `${value.toFixed(2)} ‰`
+    const message = props.rampedEbac > 1.6 ? "¯\\_(ツ)_/¯" : `${value.toFixed(2)} ‰`
 
     return (
         <div>
-            <div style={{position: 'relative'}}>
-                <div style={{position: 'relative', zIndex: 10}}>
+            <div style={{position: "relative"}}>
+                <div style={{position: "relative", zIndex: 10}}>
                     <GaugeChart
-                        id={'ebacGauge'}
+                        id={"ebacGauge"}
                         percent={value / 1.6}
                         formatTextValue={() => message}
                         textColor={theme.palette.text.primary}
@@ -47,13 +49,13 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
                         animate={true}
                         />
                 </div>
-                <div style={{position: 'absolute', left: 0, top: 0, right: 0, bottom: 0, zIndex: 5}} className={clsx(Math.abs(peak - value) < 0.005 && classes.hidden)}>
+                <div style={{position: "absolute", left: 0, top: 0, right: 0, bottom: 0, zIndex: 5}} className={clsx(Math.abs(peak - value) < 0.005 && classes.hidden)}>
                     <GaugeChart
-                        id={'ebacGauge-peak'}
+                        id={"ebacGauge-peak"}
                         percent={peak / 1.6}
                         colors={["#0000"]}
                         hideText={true}
-                        needleColor={'#f808'}
+                        needleColor={"#f808"}
                         animDelay={0}
                         animate={true}
                         />
@@ -65,23 +67,23 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
     )
 
     function AlertMessage(rampingEbac: number, peakEbac: number): ReactNode {
-        let variant: 'info' | 'success' | 'warning' | 'danger'
+        let variant: "info" | "success" | "warning" | "danger"
         let message: ReactNode
 
         if (peakEbac < 0.6) {
-            variant = 'info'
+            variant = "info"
             message = null
         }
         else if (peakEbac < 1.0) {
-            variant = 'success'
+            variant = "success"
             message = null
         }
         else if (peakEbac < 1.2) {
-            variant = 'warning'
+            variant = "warning"
             message = <span>Det räcker nu</span>
         }
         else {
-            variant = 'danger'
+            variant = "danger"
             // FIXME: Lägg till tid till vad?
             message = <span>Lägg ner&hellip;</span>
         }
@@ -89,19 +91,19 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
         return (
             <Message variant={variant}>
                 <Grid item>
-                    <Typography variant='h3' display='inline'>
+                    <Typography variant="h3" display="inline">
                         {emojiFromLevel(rampingEbac)}
                     </Typography>
                 </Grid>
                 {message !== null &&
                     <>
                         <Grid item>
-                            <Typography variant='body1' display='inline'>
+                            <Typography variant="body1" display="inline">
                                 {message}
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Typography variant='h3' display='inline'>
+                            <Typography variant="h3" display="inline">
                                 {emojiFromLevel(peakEbac)}
                             </Typography>
                         </Grid>
@@ -114,55 +116,26 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
 
 export default EbacInfo
 
-interface MessageProps {
-    variant: 'info' | 'success' | 'warning' | 'danger'
-    children: ReactNode
-}
-
-const Message: React.FC<MessageProps> = (props) => {
-    const classes = useStyles()
-
-    const className = (() => {
-        switch (props.variant) {
-            case 'info':
-                return classes.infoMessage
-            case 'success':
-                return classes.successMessage
-            case 'warning':
-                return classes.warningMessage
-            case 'danger':
-                return classes.dangerMessage
-        }
-    })()
-
-    return (
-        <Paper elevation={0} className={className}>
-            <Grid container spacing={2} alignItems='center' justify='center'>
-                {props.children}
-            </Grid>
-        </Paper>
-    )
-}
 
 function emojiFromLevel(ebac: number): string {
     const emojis = [
-        '🙂',
-        '😛',
-        '😀',
-        '😃',
-        '😄',
-        '😁',
-        '😎',
-        '🥳',
-        '😜',
-        '🤪',
-        '😌',
-        '🥴',
-        '🤡',
-        '🤢',
-        '🤮',
-        '😴',
-        '😵',
+        "🙂",
+        "😛",
+        "😀",
+        "😃",
+        "😄",
+        "😁",
+        "😎",
+        "🥳",
+        "😜",
+        "🤪",
+        "😌",
+        "🥴",
+        "🤡",
+        "🤢",
+        "🤮",
+        "😴",
+        "😵",
     ]
     const index = clamp(Math.floor(10 * ebac), 0, emojis.length - 1)
 

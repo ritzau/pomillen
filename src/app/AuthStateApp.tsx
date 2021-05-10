@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
 
-import Amplify from 'aws-amplify'
+import Amplify from "aws-amplify"
 import { 
     AuthState, 
     onAuthUIStateChange, 
-} from '@aws-amplify/ui-components'
+} from "@aws-amplify/ui-components"
 
-import { AuthContext } from './contexts'
-import LoginPage from './pages/LoginPage'
-import App from './App'
+import { AuthContext, StoreContext } from "../pomillen/contexts"
+import App from "./App"
+import LocalStoragePomillenStore from "../store/LocalStorageStore"
+import LoginPage from "../pages/LoginPage"
 
-import awsConfig from './aws-exports'
+import awsConfig from "../aws-exports"
 
 
 Amplify.configure(awsConfig)
@@ -22,7 +23,7 @@ const AuthStateApp: React.FunctionComponent = () => {
 
     React.useEffect(() => {
         return onAuthUIStateChange((nextAuthState, authData) => {
-            setAuthState(nextAuthState);
+            setAuthState(nextAuthState)
             setUser(authData)
         })
     }, [])
@@ -36,9 +37,11 @@ const AuthStateApp: React.FunctionComponent = () => {
     const shouldPresentLoginPage = wantsToLogIn && (authState !== AuthState.SignedIn || !user)
 
     return (
-        <AuthContext.Provider value={authContext}>
-            {shouldPresentLoginPage ? <LoginPage /> : <App />}
-        </AuthContext.Provider>
+        <StoreContext.Provider value={new LocalStoragePomillenStore()}>
+            <AuthContext.Provider value={authContext}>
+                {shouldPresentLoginPage ? <LoginPage /> : <App />}
+            </AuthContext.Provider>
+        </StoreContext.Provider>
     )
 }
 

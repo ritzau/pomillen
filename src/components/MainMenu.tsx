@@ -1,46 +1,51 @@
-import React, { useContext, useState } from 'react';
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react"
+
+import { Link } from "react-router-dom"
+
 import {
     Divider,
     IconButton,
     Menu,
     MenuItem
-} from '@material-ui/core';
-import { AuthState } from '@aws-amplify/ui-components';
-import { AuthContext } from '../contexts';
-import { VikingIcon } from '../icons';
-import Auth from '@aws-amplify/auth';
+} from "@material-ui/core"
 
-export function MainMenu() {
-    const auth = useContext(AuthContext);
+import { AuthState } from "@aws-amplify/ui-components"
+import Auth from "@aws-amplify/auth"
 
-    const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
+import { AuthContext } from "../pomillen/contexts"
+import { VikingIcon } from "../icons"
+
+
+export default function MainMenu() {
+    const auth = useContext(AuthContext)
+
+    const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null)
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElement(event.currentTarget);
-    };
+        setAnchorElement(event.currentTarget)
+    }
 
     const handleClose = () => {
-        setAnchorElement(null);
-    };
+        setAnchorElement(null)
+    }
 
     const handleLogin = (_event: React.MouseEvent<HTMLElement>) => {
-        auth.setLogIn(true);
-        handleClose();
-    };
+        auth.setLogIn(true)
+        handleClose()
+    }
 
     const handleLogout = (_event: React.MouseEvent<HTMLElement>) => {
-        auth.setLogIn(false);
+        auth.setLogIn(false)
         Auth.signOut()
-        handleClose();
-    };
+        handleClose()
+    }
 
-    const isLoggedIn = auth.state === AuthState.SignedIn && Boolean(auth.user);
-    const username = auth.user?.attributes?.nickname ?? ''
+    const isLoggedIn = auth.state === AuthState.SignedIn && Boolean(auth.user)
+    const username = auth.user?.attributes?.nickname ?? ""
 
     return (
         <div>
-            <IconButton color='inherit' onClick={handleClick}>
+            <IconButton color="inherit" onClick={handleClick}>
                 <VikingIcon />
             </IconButton>
 
@@ -51,7 +56,7 @@ export function MainMenu() {
                 open={Boolean(anchorElement)}
                 onClose={handleClose}
             >
-                <MenuItem component={Link} to='/config' onClick={handleClose}>Profil</MenuItem>
+                <MenuItem component={Link} to="/config" onClick={handleClose}>Profil</MenuItem>
                 <MenuItem onClick={handleClose}>Om</MenuItem>
                 <Divider />
 
@@ -60,5 +65,5 @@ export function MainMenu() {
                     : <MenuItem onClick={handleLogin}>Login</MenuItem>}
             </Menu>
         </div>
-    );
+    )
 }

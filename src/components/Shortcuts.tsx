@@ -1,45 +1,32 @@
-import React, {
-    ReactNode,
-    useEffect,
-    useState
-} from "react"
-
-import { Button, Grid } from '@material-ui/core'
+import React, { useContext } from "react"
 import { Link } from "react-router-dom"
 
-import useStyles from "../theme/styles";
+import { Grid } from "@material-ui/core"
 
-interface ShortcutProps {
-    shortcuts: number[][]
-    calculateEbac: (cl: number, pct: number) => number
-    addDrink: (cl: number, pct: number) => void
-}
+import { Drink } from "../pomillen/Drink"
+import { PomillenContext } from "../pomillen/contexts"
+import { useWindowDimensions } from "../pomillen/hooks"
+import ShortcutButton from "./ShortcutButton"
 
-const Shortcuts: React.FC<ShortcutProps> = (props) => {
-    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions())
 
-    useEffect(() => {
-        function handleResize() {
-            setWindowDimensions(getWindowDimensions());
-        }
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+const Shortcuts: React.FC = () => {
+    const { width: windowWidth } = useWindowDimensions()
+    const pomillenDrinks = useContext(PomillenContext)
 
     let maxButtons: number
     let colProps: {}
-    if (windowDimensions.width < 375) {
+
+    if (windowWidth < 375) {
         maxButtons = 6
         colProps = { xs: 4 }
     }
     else {
         colProps = { md: 1, sm: 2, xs: 3 }
 
-        if (windowDimensions.width < 600) {
+        if (windowWidth < 600) {
             maxButtons = 8
         }
-        else if (windowDimensions.width < 960) {
+        else if (windowWidth < 960) {
             maxButtons = 6
         }
         else {
@@ -47,24 +34,24 @@ const Shortcuts: React.FC<ShortcutProps> = (props) => {
         }
     }
 
-    const buttons = props.shortcuts
+    const buttons = pomillenDrinks.shortcuts
         .slice(0, maxButtons - 1)
         .map(([cl, pct]: number[]) => (
             <Grid item key={`${cl}:${pct}`} {...colProps}>
                 <ShortcutButton
-                    variant='contained'
-                    onClick={() => props.addDrink(cl, pct)}
-                    >
+                    variant="contained"
+                    onClick={() => pomillenDrinks.addDrink(new Drink(Date.now(), cl, pct))}
+                >
                     {cl} cl<br />{pct}&nbsp;%
                 </ShortcutButton>
             </Grid>
         ))
 
     return (
-        <Grid container spacing={1} alignItems='stretch'>
+        <Grid container spacing={1} alignItems="stretch">
             {buttons}
             <Grid item {...colProps}>
-                <ShortcutButton variant='contained' component={Link} to="/add">
+                <ShortcutButton variant="contained" component={Link} to="/add">
                     Mer
                 </ShortcutButton>
             </Grid>
@@ -73,36 +60,3 @@ const Shortcuts: React.FC<ShortcutProps> = (props) => {
 }
 
 export default Shortcuts
-
-// XXX: How do I get all props of Button?
-interface ShortcutButtonProps {
-    variant?: 'outlined' | 'contained' | 'text'
-    onClick?: () => void
-    children?: ReactNode
-    component?: ReactNode
-    to?: string
-}
-
-const ShortcutButton: React.FC<ShortcutButtonProps> = (props) => {
-    const classes = useStyles()
-
-    return (
-        <>
-            <Button 
-                fullWidth
-                size='small' 
-                color='primary' 
-                {...props} 
-                className={classes.shortcutButton}
-                >
-                {props.children}
-            </Button>
-        </>
-    );
-}
-
-function getWindowDimensions() {
-    const { innerWidth: width, innerHeight: height } = window
-
-    return { width, height }
-}

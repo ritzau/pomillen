@@ -5,16 +5,16 @@ import {
     totalGramsOfAlcohol,
     Drink,
     ebacPeak,
-} from './Drink'
+} from "./Drink"
 
-import { millisFromMinutes } from './utils'
+import { millisFromMinutes } from "./utils"
 
-import { toMatchCloseTo } from 'jest-matcher-deep-close-to'
+import { toMatchCloseTo } from "jest-matcher-deep-close-to"
 
 expect.extend({ toMatchCloseTo })
 
 
-it('alcohol conversion', () => {
+it("alcohol conversion", () => {
     expect(gramsOfAlcohol(0, 0)).toBe(0)
     expect(gramsOfAlcohol(1, 0)).toBe(0)
     expect(gramsOfAlcohol(0, 1)).toBe(0)
@@ -23,7 +23,7 @@ it('alcohol conversion', () => {
     expect(gramsOfAlcohol(2, 50)).toBeCloseTo(7.89)
 })
 
-it('computes ramped alcohol', () => {
+it("computes ramped alcohol", () => {
     const before = -10
     const s = 0
     const qh = 15
@@ -53,7 +53,7 @@ it('computes ramped alcohol', () => {
     expect(rampedGramsOfAlcohol({ gramsOfAlcohol: g, minutesPassed: qh, absorptionMinutes: 0 })).toBe(g)
 })
 
-it('throws on bad input', () => {
+it("throws on bad input", () => {
     expect(() => gramsOfAlcohol(-1, 1)).toThrowError(RangeError)
     expect(() => gramsOfAlcohol(1, -1)).toThrowError(RangeError)
 
@@ -61,7 +61,7 @@ it('throws on bad input', () => {
     expect(() => rampedGramsOfAlcohol({ gramsOfAlcohol: 1, minutesPassed: 1, absorptionMinutes: -1 })).toThrowError(RangeError)
 })
 
-it('handles the drinks', () => {
+it("handles the drinks", () => {
     const s = 1_000_000_000
     const before = s - 600_000
     const qh = s + 900_000
@@ -82,7 +82,7 @@ it('handles the drinks', () => {
     expect(new Drink(s, vol, pct).rampedGramsOfAlcohol(fh, hhMin)).toBeCloseTo(g)
 })
 
-it('handles lists of drinks', () => {
+it("handles lists of drinks", () => {
     expect(totalGramsOfAlcohol([])).toBe(0)
 
     const vol = 4
@@ -112,7 +112,7 @@ it('handles lists of drinks', () => {
     })).toBeCloseTo(3 * g / 2)
 })
 
-it('computes peak', () => {
+it("computes peak", () => {
     const vol = 4
     const pct = 40
     const g = gramsOfAlcohol(vol, pct)
@@ -131,7 +131,7 @@ it('computes peak', () => {
     })
 })
 
-it('computes peak that peaked already', () => {
+it("computes peak that peaked already", () => {
     const vol = 4
     const pct = 40
     const g = gramsOfAlcohol(vol, pct)

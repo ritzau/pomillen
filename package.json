@@ -51,6 +51,7 @@
   },
   "description": "Pomillen - an EBAC tracker",
   "devDependencies": {
-    "@svgr/webpack": "^5.5.0"
+    "@svgr/webpack": "^5.5.0",
+    "@types/react-gauge-chart": "^0.3.0"
   }
 }

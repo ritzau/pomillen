@@ -1,5 +1,6 @@
 import {
-    useState
+    useContext,
+    useState,
 } from "react"
 
 import {
@@ -14,43 +15,38 @@ import {
     TableBody,
     Toolbar,
     Typography,
-} from '@material-ui/core'
+} from "@material-ui/core"
 
-import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
-import ClearAllIcon from '@material-ui/icons/ClearAll';
+import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined"
+import ClearAllIcon from "@material-ui/icons/ClearAll"
 
-import clsx from 'clsx'
+import clsx from "clsx"
 
-import useStyles from "../theme/styles";
+import { Link } from "react-router-dom"
+import { PomillenContext } from "../pomillen/contexts"
+import useStyles from "../theme/styles"
 
-import { Drink } from "../Drink";
-import { Link } from "react-router-dom";
 
-interface DrinksListProps {
-    drinks: Drink[]
-    deleteDrink: (id: number) => void
-    deleteAllDrinks: () => void
-}
-
-const DrinksList: React.FC<DrinksListProps> = (props) => {
+const DrinksList: React.FC = () => {
     const classes = useStyles()
+    const pomillenDrinks = useContext(PomillenContext)
 
     const [editMode, setEditMode] = useState(false)
 
-    function deleteAllDrinks() {
-        props.deleteAllDrinks()
+    function localDeleteAllDrinks() {
+        pomillenDrinks.deleteAllDrinks()
         setEditMode(false)
     }
 
     const NoDrinksMessage = () => (
-        <Button color='secondary' fullWidth component={Link} to='/add' className={classes.message}>
+        <Button color="secondary" fullWidth component={Link} to="/add" className={classes.message}>
             Lägg till dricka
         </Button>
     )
 
     function formatTime(d: Date): string {
-        const hours = d.getHours().toString().padStart(2, '0')
-        const mins = d.getMinutes().toString().padStart(2, '0')
+        const hours = d.getHours().toString().padStart(2, "0")
+        const mins = d.getMinutes().toString().padStart(2, "0")
 
         return `${hours}.${mins}`
     }
@@ -61,37 +57,37 @@ const DrinksList: React.FC<DrinksListProps> = (props) => {
                 <TableHead>
                     <TableRow>
                         <TableCell>Tid</TableCell>
-                        <TableCell align='right'>Cl</TableCell>
-                        <TableCell align='right'>%</TableCell>
-                        <TableCell align='right'>
+                        <TableCell align="right">Cl</TableCell>
+                        <TableCell align="right">%</TableCell>
+                        <TableCell align="right">
                             <IconButton 
-                                onClick={deleteAllDrinks}
+                                onClick={localDeleteAllDrinks}
                                 className={clsx(classes.listIconButton, editMode || classes.hidden)}
                             >
-                                <ClearAllIcon color='error' />
+                                <ClearAllIcon color="error" />
                             </IconButton>
                         </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.drinks.map((d, i) => (
+                    {pomillenDrinks.drinks.map((d, i) => (
                         <TableRow key={d.timestamp}>
                             <TableCell>
                                 {formatTime(new Date(d.timestamp))}
                             </TableCell>
-                            <TableCell align='right'>
-                                {d.volumeCl.toFixed(0)}&nbsp;cl
+                            <TableCell align="right">
+                                {d.volumeCl.toFixed(0)}&nbspcl
                             </TableCell>
-                            <TableCell align='right'>
-                                {d.alcoholPercent.toFixed(d.alcoholPercent < 10 ? 1 : 0)}&nbsp;%
+                            <TableCell align="right">
+                                {d.alcoholPercent.toFixed(d.alcoholPercent < 10 ? 1 : 0)}&nbsp%
                             </TableCell>
-                            <TableCell align='right'>
+                            <TableCell align="right">
                                 <IconButton 
-                                    size='small' 
-                                    onClick={() => props.deleteDrink(i)} 
+                                    size="small" 
+                                    onClick={() => pomillenDrinks.deleteDrink(i)} 
                                     className={clsx(classes.listIconButton, editMode || classes.hidden)}
                                     >
-                                    <DeleteForeverOutlinedIcon color='error' />
+                                    <DeleteForeverOutlinedIcon color="error" />
                                 </IconButton>
                             </TableCell>
                         </TableRow>
@@ -104,13 +100,13 @@ const DrinksList: React.FC<DrinksListProps> = (props) => {
     return (
         <Paper>
             {
-                props.drinks.length === 0
+                pomillenDrinks.drinks.length === 0
                     ? <NoDrinksMessage />
                     : <>
-                        <Toolbar variant='dense'>
-                            <Typography variant='h6' className={classes.title}>Drickalista</Typography>
-                            <Button color='secondary' onClick={() => setEditMode(!editMode)}>
-                                {editMode ? 'Klar' : 'Redigera'}
+                        <Toolbar variant="dense">
+                            <Typography variant="h6" className={classes.title}>Drickalista</Typography>
+                            <Button color="secondary" onClick={() => setEditMode(!editMode)}>
+                                {editMode ? "Klar" : "Redigera"}
                             </Button>
                         </Toolbar>
 

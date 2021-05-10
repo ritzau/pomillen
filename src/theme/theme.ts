@@ -1,26 +1,26 @@
-import { createMuiTheme } from "@material-ui/core";
+import { createMuiTheme } from "@material-ui/core"
 
 export default function createPomillenTheme(prefersLightMode: boolean) {
     return createMuiTheme({
         palette: {
-            type: prefersLightMode ? 'light' : 'dark',
+            type: prefersLightMode ? "light" : "dark",
             primary: {
-                main: '#444444',
-                light: '#666666',
-                contrastText: '#ffffff',
+                main: "#444444",
+                light: "#666666",
+                contrastText: "#ffffff",
             },
             secondary: {
-                main: '#4488ff',
+                main: "#4488ff",
             },
         },
         typography: {
             fontFamily: [
-                'BlinkMacSystemFont',
-                'Lato',
-                'Roboto',
-                'Helvetica',
-                'sans-serif',
-            ].join(','),
+                "BlinkMacSystemFont",
+                "Lato",
+                "Roboto",
+                "Helvetica",
+                "sans-serif",
+            ].join(","),
         }
     })
 }
