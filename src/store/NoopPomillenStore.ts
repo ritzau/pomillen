@@ -12,7 +12,7 @@ export default class InMemoryPomillenStore implements PomillenStore {
     }
 
     loadProfile() {
-        return EbacProfile.CreateOtherProfile()
+        return EbacProfile.CreateProfile()
     }
 
     storeDrinks(drinks: Drink[]) {}

@@ -38,7 +38,7 @@ export interface PomillenPreferences {
 }
 
 export class PomillenPreferencesNoop implements PomillenPreferences {
-    readonly ebac = EbacProfile.CreateOtherProfile()
+    readonly ebac = EbacProfile.CreateProfile()
     readonly setEbacProfile = (p : EbacProfile) => {}
 
     updateEbacProfile(_patch: any) {}

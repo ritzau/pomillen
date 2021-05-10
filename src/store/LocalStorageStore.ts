@@ -29,7 +29,7 @@ export default class LocalStoragePomillenStore implements PomillenStore {
     loadProfile() {
         let item = localStorage.getItem(EBAC_PROFILE_KEY)
         if (item === null) {
-            return EbacProfile.CreateOtherProfile()
+            return EbacProfile.CreateProfile()
         }
 
         return EbacProfile.CreateFromProps(JSON.parse(item as string))

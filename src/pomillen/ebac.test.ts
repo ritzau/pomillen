@@ -37,9 +37,6 @@ it("calculates the minutes to green", () => {
 })
 
 it("handles profiles", () => {
-    expect(EbacProfile.CreateFemaleProfile(58, 1_000_000).ebac(1_001_800, 100)).toBeCloseTo(2.84)
-    expect(EbacProfile.CreateMaleProfile(58, 1_000_000).ebac(1_001_800, 100)).toBeCloseTo(2.40)
-
-    expect(EbacProfile.CreateFemaleProfile(58, 1_000_000).minutesToGreen(1)).toBeCloseTo(105.88, 2)
-    expect(EbacProfile.CreateMaleProfile(58, 1_000_000).minutesToGreen(1)).toBeCloseTo(120.00, 2)
+    expect(EbacProfile.CreateProfile(58).ebac(120, 1)).toBeCloseTo(2.96)
+    expect(EbacProfile.CreateProfile(58).minutesToGreen(1)).toBeCloseTo(112.50, 2)
 })
