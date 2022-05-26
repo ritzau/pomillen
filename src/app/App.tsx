@@ -2,9 +2,8 @@ import React, { useContext } from "react"
 
 import {
     HashRouter as Router,
-    Redirect,
     Route,
-    Switch,
+    Routes,
 } from "react-router-dom"
 
 import {
@@ -36,20 +35,15 @@ const App: React.FC = () => {
                     <CssBaseline />
                     <div className={classes.root}>
                         <Router>
-                            <Switch>
-                                <Route exact path="/home">
-                                    <EbacHome />
-                                </Route>
-                                <Route exact path="/add">
-                                    <NewDrinkPage />
-                                </Route>
-                                <Route exact path="/">
+                            <Routes>
+                                <Route path="/" element={<EbacHome />} />
+                                <Route path="/home" element={<EbacHome />} />
+                                <Route path="/add" element={<NewDrinkPage />} />
+                                {/* FIXME <Route exact path="/">
                                     <Redirect to="/home" />
-                                </Route>
-                                <Route exact path="/config">
-                                    <SettingsPage />
-                                </Route>
-                            </Switch>
+                                </Route> */}
+                                <Route path="/config" element={<SettingsPage />} />
+                            </Routes>
                         </Router>
                     </div>
                 </PomillenContext.Provider>

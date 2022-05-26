@@ -9,7 +9,6 @@ import {
     MenuItem
 } from "@material-ui/core"
 
-
 import { VikingIcon } from "../icons"
 
 
@@ -23,8 +22,6 @@ export default function MainMenu() {
     const handleClose = () => {
         setAnchorElement(null)
     }
-
-
 
     return (
         <div>
@@ -41,8 +38,6 @@ export default function MainMenu() {
             >
                 <MenuItem component={Link} to="/config" onClick={handleClose}>Profil</MenuItem>
                 <MenuItem onClick={handleClose}>Om</MenuItem>
-                <Divider />
-
             </Menu>
         </div>
     )

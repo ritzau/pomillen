@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 
-import { useHistory } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 import {
     AppBar,
@@ -22,7 +22,7 @@ import useStyles from "../theme/styles"
 
 
 const SettingsPage: React.FC = () => {
-    const history = useHistory()
+    const navigate = useNavigate()
     const classes = useStyles()
     const preferences = useContext(ProfileContext)
     const pomillenDrinks = useContext(PomillenContext)
@@ -31,7 +31,7 @@ const SettingsPage: React.FC = () => {
 
     function reset() {
         pomillenDrinks.deleteAllDrinks()
-        history.goBack()
+        navigate('/home')
     }
 
 
@@ -42,7 +42,7 @@ const SettingsPage: React.FC = () => {
                     <IconButton
                         edge="start"
                         color="inherit"
-                        onClick={history.goBack}
+                        onClick={() => navigate('/home')}
                         className={classes.menuButton}
                     >
                         <ArrowBackIcon />

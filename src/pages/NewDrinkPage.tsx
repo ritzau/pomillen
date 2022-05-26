@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react"
 
 import {
-    useHistory,
+    useNavigate,
 } from "react-router-dom"
 
 import {
@@ -25,7 +25,7 @@ import useStyles from "../theme/styles"
 
 const NewDrinkPage: React.FC = () => {
     const classes = useStyles()
-    const history = useHistory()
+    const navigate = useNavigate()
 
     const pomillenDrinks = useContext(PomillenContext)
 
@@ -38,7 +38,7 @@ const NewDrinkPage: React.FC = () => {
 
     function add() {
         pomillenDrinks.addDrink(new Drink(Date.now(), volume, percentage))
-        history.goBack()
+        navigate('/home')
     }
 
     return (
@@ -48,7 +48,7 @@ const NewDrinkPage: React.FC = () => {
                     <IconButton 
                         edge="start" 
                         color="inherit" 
-                        onClick={history.goBack}
+                        onClick={() => navigate('/home')}
                         className={classes.menuButton} 
                         >
                         <ArrowBackIcon />
