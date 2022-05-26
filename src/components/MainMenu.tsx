@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useState } from "react"
 
 import { Link } from "react-router-dom"
 
@@ -9,16 +9,11 @@ import {
     MenuItem
 } from "@material-ui/core"
 
-import { AuthState } from "@aws-amplify/ui-components"
-import Auth from "@aws-amplify/auth"
 
-import { AuthContext } from "../pomillen/contexts"
 import { VikingIcon } from "../icons"
 
 
 export default function MainMenu() {
-    const auth = useContext(AuthContext)
-
     const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null)
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -29,19 +24,7 @@ export default function MainMenu() {
         setAnchorElement(null)
     }
 
-    const handleLogin = (_event: React.MouseEvent<HTMLElement>) => {
-        auth.setLogIn(true)
-        handleClose()
-    }
 
-    const handleLogout = (_event: React.MouseEvent<HTMLElement>) => {
-        auth.setLogIn(false)
-        Auth.signOut()
-        handleClose()
-    }
-
-    const isLoggedIn = auth.state === AuthState.SignedIn && Boolean(auth.user)
-    const username = auth.user?.attributes?.nickname ?? ""
 
     return (
         <div>
@@ -60,9 +43,6 @@ export default function MainMenu() {
                 <MenuItem onClick={handleClose}>Om</MenuItem>
                 <Divider />
 
-                {isLoggedIn
-                    ? <MenuItem onClick={handleLogout}>Logout {username}</MenuItem>
-                    : <MenuItem onClick={handleLogin}>Login</MenuItem>}
             </Menu>
         </div>
     )
