@@ -16,6 +16,7 @@ import { usePomillenPreferences } from "../model/Preferences"
 import { usePomillenTheme } from "../pomillen/hooks"
 import AboutPage from "../pages/AboutPage"
 import EbacHome from "../pages/EbacHome"
+import EditDrinkPage from "../pages/EditDrinkPage"
 import NewDrinkPage from "../pages/NewDrinkPage"
 import SettingsPage from "../pages/SettingsPage"
 import useStyles from "../theme/styles"
@@ -39,6 +40,7 @@ const App: React.FC = () => {
                                 <Route path="/" element={<Navigate to="/home" replace />} /> 
                                 <Route path="/about" element={<AboutPage />} />
                                 <Route path="/add" element={<NewDrinkPage />} />
+                                <Route path="/edit/:id" element={<EditDrinkPage />} />
                                 <Route path="/config" element={<SettingsPage />} />
                                 <Route path="/home" element={<EbacHome />} />
                             </Routes>
