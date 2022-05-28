@@ -45,6 +45,8 @@ export class AddDrinkAction implements DrinksAction {
         const alcoholPercent = this.drink.alcoholPercent
 
         const drinks = [...state.drinks, this.drink]
+            .sort((a, b) => a.timestamp - b.timestamp)
+
         const filteredShortcuts = state.shortcuts.filter((shortcut: number[]) => {
             const [cl, pct] = shortcut
             return !(cl === volumeCl && pct === alcoholPercent)
@@ -59,15 +61,46 @@ export class AddDrinkAction implements DrinksAction {
     }
 }
 
-export class DeleteDrinkAction implements DrinksAction {
-    readonly index: number // FIXME int?
+export class EditDrinkAction implements DrinksAction {
+    readonly id: number
+    readonly drink: Drink
 
-    constructor(index: number) {
-        this.index = index
+    constructor(id: number, drink: Drink) {
+        this.id = id
+        this.drink = drink
     }
 
     process(state: DrinksState) {
-        const drinks = state.drinks.filter((_, i) => i !== this.index)
+        const drinks = [...state.drinks.filter((_, i) => i !== this.id), this.drink]
+            .sort((a, b) => a.timestamp - b.timestamp)
+
+        const volumeCl = this.drink.volumeCl
+        const alcoholPercent = this.drink.alcoholPercent
+    
+        const filteredShortcuts = state.shortcuts.filter((shortcut: number[]) => {
+            const [cl, pct] = shortcut
+            return !(cl === volumeCl && pct === alcoholPercent)
+        })
+        
+        const shortcuts = [[volumeCl, alcoholPercent], ...filteredShortcuts].slice(0, 11)
+
+        return {
+            ...state,
+            drinks,
+            shortcuts,
+        }
+    }
+}
+
+export class DeleteDrinkAction implements DrinksAction {
+    readonly id: number // FIXME int?
+
+    constructor(id: number) {
+        this.id = id
+    }
+
+    process(state: DrinksState) {
+        const drinks = state.drinks.filter((_, i) => i !== this.id)
 
         return {
             ...state,
@@ -120,8 +153,9 @@ export interface PomillenDrinks {
     readonly shortcuts: number[][]
 
     addDrink: (drink: Drink) => void
-    deleteDrink:(index: number) => void
+    deleteDrink:(id: number) => void
     deleteAllDrinks: () => void
+    editDrink: (id: number, drink: Drink) => void
 }
 
 export class PomillenDrinksNoop implements PomillenDrinks {
@@ -131,6 +165,7 @@ export class PomillenDrinksNoop implements PomillenDrinks {
     addDrink(drink: Drink) {}
     deleteDrink(index: number) {}
     deleteAllDrinks() {}
+    editDrink (id: number, drink: Drink) {}
 }
 
 class PomillenDrinksImpl implements PomillenDrinks {
@@ -153,11 +188,15 @@ class PomillenDrinksImpl implements PomillenDrinks {
         this.dispatch(new AddDrinkAction(drink))
     }
 
-    deleteDrink(index: number) {
-        this.dispatch(new DeleteDrinkAction(index))
+    deleteDrink(id: number) {
+        this.dispatch(new DeleteDrinkAction(id))
     }
 
     deleteAllDrinks() {
         this.dispatch(new DeleteAllDrinkAction())
+    }
+
+    editDrink(id: number, drink: Drink) {
+        this.dispatch(new EditDrinkAction(id, drink))
     }
 }

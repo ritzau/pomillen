@@ -19,6 +19,8 @@ import Typography from '@mui/material/Typography'
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined'
 import ClearAllIcon from '@mui/icons-material/ClearAll'
 
+import { useNavigate } from "react-router-dom"
+
 import clsx from "clsx"
 
 import { Link } from "react-router-dom"
@@ -27,6 +29,7 @@ import useStyles from "../theme/styles"
 
 
 const DrinksList: React.FC = () => {
+    const navigate = useNavigate()
     const classes = useStyles()
     const pomillenDrinks = useContext(PomillenContext)
 
@@ -50,6 +53,10 @@ const DrinksList: React.FC = () => {
         return `${hours}.${mins}`
     }
 
+    function edit(id: number) {
+        if (editMode) navigate(`/edit/${id}`)
+    }
+
     const DrinksTable = () => (
         <TableContainer className={classes.containedTable}>
             <Table>
@@ -70,7 +77,7 @@ const DrinksList: React.FC = () => {
                 </TableHead>
                 <TableBody>
                     {pomillenDrinks.drinks.map((d, i) => (
-                        <TableRow key={d.timestamp}>
+                        <TableRow key={d.timestamp} onClick={() => edit(i)}>
                             <TableCell>
                                 {formatTime(new Date(d.timestamp))}
                             </TableCell>
