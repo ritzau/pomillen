@@ -29,6 +29,17 @@ it("calculates ebac", () => {
         burnRatePerHour: 0.015,
         hoursPassed: 3,
     })).toBeCloseTo(0.116, 3)
+
+    expect(calculateEbac({
+        bodyWaterRatio: 0.58,
+        bodyWeight: 93,
+        waterToBloodRatio: 0.806,
+        alcoholGrams: gramsOfAlcohol(4, 40),
+        burnRatePerHour: 0.015,
+        hoursPassed: 2,
+    })).toBeCloseTo(0.04, 2)
+
+    expect(gramsOfAlcohol(4, 40)).toBeCloseTo(12.6, 1)
 })
 
 it("calculates the minutes to green", () => {
