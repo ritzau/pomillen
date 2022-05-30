@@ -76,10 +76,10 @@ const DrinksList: React.FC = () => {
                                 {formatTime(new Date(d.timestamp))}
                             </TableCell>
                             <TableCell align="right">
-                                {d.volumeCl.toFixed(0)}&nbspcl
+                                {d.volumeCl.toFixed(0)}&nbsp;cl
                             </TableCell>
                             <TableCell align="right">
-                                {d.alcoholPercent.toFixed(d.alcoholPercent < 10 ? 1 : 0)}&nbsp%
+                                {d.alcoholPercent.toFixed(d.alcoholPercent < 10 ? 1 : 0)}&nbsp;%
                             </TableCell>
                             <TableCell align="right">
                                 <IconButton 
