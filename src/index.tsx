@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import reportWebVitals from './reportWebVitals'
-import AuthStateApp from "./app/AuthStateApp"
+import PersistedApp from "./app/PersistedApp"
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthStateApp />
+    <PersistedApp />
   </React.StrictMode>,
   document.getElementById('root')
 )

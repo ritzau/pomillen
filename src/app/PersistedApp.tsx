@@ -4,7 +4,7 @@ import { StoreContext } from "../pomillen/contexts"
 import App from "./App"
 import LocalStoragePomillenStore from "../store/LocalStorageStore"
 
-const AuthStateApp: React.FunctionComponent = () => {
+const PersistedApp: React.FunctionComponent = () => {
     return (
         <StoreContext.Provider value={new LocalStoragePomillenStore()}>
             <App />
@@ -12,4 +12,4 @@ const AuthStateApp: React.FunctionComponent = () => {
     )
 }
 
-export default AuthStateApp
+export default PersistedApp
