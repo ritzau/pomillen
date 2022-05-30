@@ -36,7 +36,7 @@ export default function MainMenu() {
                 onClose={handleClose}
             >
                 <MenuItem component={Link} to="/config" onClick={handleClose}>Profil</MenuItem>
-                <MenuItem onClick={handleClose}>Om</MenuItem>
+                <MenuItem component={Link} to="/about" onClick={handleClose}>Om</MenuItem>
             </Menu>
         </div>
     )
