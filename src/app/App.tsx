@@ -2,6 +2,7 @@ import React, { useContext } from "react"
 
 import {
     HashRouter as Router,
+    Navigate,
     Route,
     Routes,
 } from "react-router-dom"
@@ -36,12 +37,9 @@ const App: React.FC = () => {
                     <div className={classes.root}>
                         <Router>
                             <Routes>
-                                <Route path="/" element={<EbacHome />} />
+                                <Route path="/" element={<Navigate to="/home" replace />} /> 
                                 <Route path="/home" element={<EbacHome />} />
                                 <Route path="/add" element={<NewDrinkPage />} />
-                                {/* FIXME <Route exact path="/">
-                                    <Redirect to="/home" />
-                                </Route> */}
                                 <Route path="/config" element={<SettingsPage />} />
                             </Routes>
                         </Router>
