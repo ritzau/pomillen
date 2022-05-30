@@ -7,12 +7,14 @@ import PomillenStore from "../store/PomillenStore"
 export interface DrinksState {
     drinks: Drink[]
     shortcuts: number[][]
+    now: number
 }
 
 export function initialDrinksState() {
     return {
         drinks: [],
-        shortcuts: []
+        shortcuts: [],
+        now: Date.now(),
     }
 }
 
@@ -20,6 +22,7 @@ export function loadDrinksState(store: PomillenStore) {
     return {
         drinks: store.loadDrinks(),
         shortcuts: store.loadShortcuts(),
+        now: Date.now(),
     }
 }
 
@@ -151,6 +154,7 @@ export function useDrinks(backingStore: PomillenStore): PomillenDrinks {
 export interface PomillenDrinks {
     readonly drinks: Drink[]
     readonly shortcuts: number[][]
+    readonly now: number
 
     addDrink: (drink: Drink) => void
     deleteDrink:(id: number) => void
@@ -161,6 +165,7 @@ export interface PomillenDrinks {
 export class PomillenDrinksNoop implements PomillenDrinks {
     readonly drinks = []
     readonly shortcuts = []
+    readonly now = 0
 
     addDrink(drink: Drink) {}
     deleteDrink(index: number) {}
@@ -183,6 +188,9 @@ class PomillenDrinksImpl implements PomillenDrinks {
         return this.state.shortcuts
     }
 
+    public get now() : number {
+        return this.state.now
+    }
 
     addDrink(drink: Drink) {
         this.dispatch(new AddDrinkAction(drink))

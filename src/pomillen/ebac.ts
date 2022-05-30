@@ -82,14 +82,6 @@ export default class EbacProfile {
             hoursPassed,
         })
     }
-
-    public minutesToGreen(ebacPermillage: number) {
-        return minutesToGreen({
-            ebac: ebacPermillage,
-            burnRate: this.burnRatePerHour,
-            greenLevel: this.greenLevelPermillage
-        })
-    }
 }
 
 export function calculateEbac(
@@ -116,15 +108,9 @@ export function calculateEbac(
     const ebacGramsPerDl = peakGramsAlcoholPerDlBlood - burnRatePerHour * hoursPassed
     const permillage = 10 * ebacGramsPerDl
 
-    return Math.max(0, permillage)
-}
+    if (permillage <= 0) {
+        console.log({ bodyWaterRatio, bodyWeight, waterDl, bloodDl, peakGramsAlcoholPerDlBlood, burned: burnRatePerHour * hoursPassed, ebacGramsPerDl, waterToBloodRatio, alcoholGrams, burnRatePerHour, hoursPassed, permillage })
+    }
 
-export function minutesToGreen(
-    { ebac, burnRate, greenLevel }
-        : { ebac: number; burnRate: number; greenLevel: number }
-) {
-    // DL as described above
-    const gramsPerDlBloodDiff = (ebac - greenLevel) / 10
-    const hoursToGreen = gramsPerDlBloodDiff / burnRate
-    return Math.max(0, 60 * hoursToGreen)
+    return permillage
 }
