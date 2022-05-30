@@ -1,5 +1,5 @@
 import { gramsOfAlcohol } from "./Drink"
-import EbacProfile, { calculateEbac, minutesToGreen } from "./ebac"
+import EbacProfile, { calculateEbac } from "./ebac"
 
 it("calculates ebac", () => {
     // Sample from cited EBAC report
@@ -42,12 +42,6 @@ it("calculates ebac", () => {
     expect(gramsOfAlcohol(4, 40)).toBeCloseTo(12.6, 1)
 })
 
-it("calculates the minutes to green", () => {
-    expect(minutesToGreen({ ebac: 1, burnRate: 0.05, greenLevel: 0 })).toBe(120)
-    expect(minutesToGreen({ ebac: 0, burnRate: 0.05, greenLevel: 1 })).toBe(0)
-})
-
 it("handles profiles", () => {
     expect(EbacProfile.CreateProfile(58).ebac(120, 1)).toBeCloseTo(2.96)
-    expect(EbacProfile.CreateProfile(58).minutesToGreen(1)).toBeCloseTo(112.50, 2)
 })
