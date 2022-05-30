@@ -1,6 +1,9 @@
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles } from '@mui/styles'
+import { createTheme } from '@mui/material/styles'
 
-const useStyles = makeStyles((theme) => ({
+const theme = createTheme();
+
+const useStyles = makeStyles({
     root: {
         flexGrow: 1,
     },
@@ -65,6 +68,6 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.warning.main,
         padding: theme.spacing(2)
     },
-}))
+})
 
 export default useStyles

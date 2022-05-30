@@ -2,18 +2,16 @@ import React, { useContext } from "react"
 
 import { useNavigate } from "react-router-dom"
 
-import {
-    AppBar,
-    Button,
-    Container,
-    Grid,
-    IconButton,
-    Slider,
-    Toolbar,
-    Typography,
-} from "@material-ui/core"
+import AppBar from '@mui/material/AppBar'
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
+import IconButton from '@mui/material/IconButton'
+import Slider from '@mui/material/Slider'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
 
-import ArrowBackIcon from "@material-ui/icons/ArrowBackIos"
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 
 import clsx from "clsx"
 
@@ -45,7 +43,7 @@ const SettingsPage: React.FC = () => {
                         onClick={() => navigate('/home')}
                         className={classes.menuButton}
                     >
-                        <ArrowBackIcon />
+                        <ArrowBackIosNewIcon />
                     </IconButton>
                     <Typography variant="h6" color="inherit">Inställningar</Typography>
                 </Toolbar>

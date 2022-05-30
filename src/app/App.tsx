@@ -7,10 +7,8 @@ import {
     Routes,
 } from "react-router-dom"
 
-import {
-    CssBaseline,
-    ThemeProvider,
-} from "@material-ui/core"
+import ThemeProvider from "@mui/styles/ThemeProvider"
+import CssBaseline from "@mui/material/CssBaseline"
 
 import { PomillenContext, ProfileContext, StoreContext } from "../pomillen/contexts"
 import { useDrinks } from "../model/Pomillen"

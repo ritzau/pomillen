@@ -1,12 +1,10 @@
 import React, { useContext } from "react"
 
-import {
-    AppBar,
-    Container,
-    Grid,
-    Toolbar,
-    Typography
-} from "@material-ui/core"
+import AppBar from '@mui/material/AppBar'
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
 
 import useStyles from "../theme/styles"
 

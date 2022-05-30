@@ -2,16 +2,14 @@ import React from "react"
 
 import { useNavigate } from "react-router-dom"
 
-import {
-    AppBar,
-    Container,
-    Grid,
-    IconButton,
-    Toolbar,
-    Typography,
-} from "@material-ui/core"
+import AppBar from '@mui/material/AppBar'
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
+import IconButton from '@mui/material/IconButton'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
 
-import ArrowBackIcon from "@material-ui/icons/ArrowBackIos"
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 
 import useStyles from "../theme/styles"
 
@@ -30,7 +28,7 @@ const AboutPage: React.FC = () => {
                         onClick={() => navigate('/home')}
                         className={classes.menuButton}
                     >
-                        <ArrowBackIcon />
+                        <ArrowBackIosNewIcon />
                     </IconButton>
                     <Typography variant="h6" color="inherit">Om Pomillen</Typography>
                 </Toolbar>

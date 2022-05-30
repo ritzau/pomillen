@@ -3,22 +3,21 @@ import {
     useState,
 } from "react"
 
-import {
-    Button,
-    IconButton,
-    Paper,
-    TableContainer,
-    Table,
-    TableHead,
-    TableRow,
-    TableCell,
-    TableBody,
-    Toolbar,
-    Typography,
-} from "@material-ui/core"
 
-import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined"
-import ClearAllIcon from "@material-ui/icons/ClearAll"
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import Paper from '@mui/material/Paper'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined'
+import ClearAllIcon from '@mui/icons-material/ClearAll'
 
 import clsx from "clsx"
 

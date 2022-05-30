@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import { Link } from "react-router-dom"
 
-import { Grid } from "@material-ui/core"
+import Grid from '@mui/material/Grid'
 
 import { Drink } from "../pomillen/Drink"
 import { PomillenContext } from "../pomillen/contexts"

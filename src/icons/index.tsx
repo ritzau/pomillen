@@ -1,4 +1,4 @@
-import { SvgIcon } from "@material-ui/core"
+import SvgIcon from '@mui/material/SvgIcon'
 
 import { ReactComponent as VikingSvgIcon } from "./viking-helmet.svg"
 

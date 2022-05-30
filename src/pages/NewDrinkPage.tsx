@@ -4,19 +4,17 @@ import {
     useNavigate,
 } from "react-router-dom"
 
-import {
-    AppBar,
-    IconButton,
-    Grid,
-    Toolbar,
-    Typography,
-    TextField,
-    Container,
-    InputAdornment,
-    Button,
-} from "@material-ui/core"
+import AppBar from '@mui/material/AppBar'
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
+import IconButton from '@mui/material/IconButton'
+import InputAdornment from '@mui/material/InputAdornment'
+import TextField from '@mui/material/TextField'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
 
-import ArrowBackIcon from "@material-ui/icons/ArrowBackIos"
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 
 import { Drink } from "../pomillen/Drink"
 import { PomillenContext } from "../pomillen/contexts"
@@ -51,7 +49,7 @@ const NewDrinkPage: React.FC = () => {
                         onClick={() => navigate('/home')}
                         className={classes.menuButton} 
                         >
-                        <ArrowBackIcon />
+                        <ArrowBackIosNewIcon />
                     </IconButton>
                     <Typography variant="h6" color="inherit">Lägg till dricka</Typography>
                 </Toolbar>
@@ -102,7 +100,6 @@ const NewDrinkPage: React.FC = () => {
 
                         <Grid item xs={12}>
                             <Button 
-                                color="default"
                                 variant="contained" 
                                 fullWidth 
                                 disabled={disabled} 

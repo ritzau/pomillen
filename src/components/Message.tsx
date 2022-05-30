@@ -1,9 +1,7 @@
 import React, { ReactNode } from "react"
 
-import {
-    Paper,
-    Grid,
-} from "@material-ui/core"
+import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
 
 import useStyles from "../theme/styles"
 
@@ -30,7 +28,7 @@ const Message: React.FC<MessageProps> = (props) => {
 
     return (
         <Paper elevation={0} className={className}>
-            <Grid container spacing={2} alignItems="center" justify="center">
+            <Grid container spacing={2} alignItems="center" justifyContent="center">
                 {props.children}
             </Grid>
         </Paper>

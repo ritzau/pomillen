@@ -1,10 +1,8 @@
 import React, { ReactNode } from "react"
 
-import {
-    Typography,
-    useTheme,
-    Grid,
-} from "@material-ui/core"
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+import useTheme from '@mui/material/styles/useTheme'
 
 import clsx from "clsx"
 import GaugeChart from "react-gauge-chart"
