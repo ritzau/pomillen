@@ -95,13 +95,13 @@ export function ebacPeak({ drinks, absorptionMinutes, millisSinceEpoch }: EbacPe
     : { peakTimeSinceEpoch: number, peakGrams: number }
 {
     const timeOfPeak = Math.max(
-        millisSinceEpoch, 
+        millisSinceEpoch,
         ...drinks.map(d => d.timestamp + millisFromMinutes(absorptionMinutes)))
 
     const peakGrams = totalRampedGramsOfAlcohol({
-        millisSinceEpoch: timeOfPeak, 
-        drinks, 
-        absorptionMinutes 
+        millisSinceEpoch: timeOfPeak,
+        drinks,
+        absorptionMinutes
     })
 
     return { peakTimeSinceEpoch: timeOfPeak, peakGrams }

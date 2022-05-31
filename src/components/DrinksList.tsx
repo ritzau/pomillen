@@ -66,7 +66,7 @@ const DrinksList: React.FC = () => {
                         <TableCell align="right">Cl</TableCell>
                         <TableCell align="right">%</TableCell>
                         <TableCell align="right">
-                            <IconButton 
+                            <IconButton
                                 onClick={localDeleteAllDrinks}
                                 className={clsx(classes.listIconButton, editMode || classes.hidden)}
                             >
@@ -88,9 +88,9 @@ const DrinksList: React.FC = () => {
                                 {d.alcoholPercent.toFixed(d.alcoholPercent < 10 ? 1 : 0)}&nbsp;%
                             </TableCell>
                             <TableCell align="right">
-                                <IconButton 
-                                    size="small" 
-                                    onClick={() => pomillenDrinks.deleteDrink(i)} 
+                                <IconButton
+                                    size="small"
+                                    onClick={() => pomillenDrinks.deleteDrink(i)}
                                     className={clsx(classes.listIconButton, editMode || classes.hidden)}
                                     >
                                     <DeleteForeverOutlinedIcon color="error" />

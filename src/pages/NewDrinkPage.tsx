@@ -32,11 +32,11 @@ const NewDrinkPage: React.FC = () => {
         <>
             <AppBar position="static">
             <Toolbar variant="dense">
-                    <IconButton 
-                        edge="start" 
-                        color="inherit" 
+                    <IconButton
+                        edge="start"
+                        color="inherit"
                         onClick={() => navigate('/home')}
-                        className={classes.menuButton} 
+                        className={classes.menuButton}
                         >
                         <ArrowBackIosNewIcon />
                     </IconButton>

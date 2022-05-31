@@ -20,7 +20,7 @@ export function usePomillenPreferences(backingStore: PomillenStore) {
             debouncedPersist(backingStore, ebacProfile)
         },
         [backingStore, ebacProfile])
-        
+
     return new PomillenPreferencesImpl(ebacProfile, setEbacProfile)
 }
 

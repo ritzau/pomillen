@@ -1,7 +1,7 @@
-// Based on: 
+// Based on:
 // Computing a BAC Estimate. National Highway Traffic Safety Administration. October, 1994.
 
-// Younger people have a higher proportion of body water as a fraction of their total weight, 
+// Younger people have a higher proportion of body water as a fraction of their total weight,
 // and older people have less. Overweight individuals have a smaller proportion of their body
 // weight as water, and lean people have a larger fraction of their body weight as water. In
 // most cases, this variability will produce a small fraction as error in calculating BAC.
@@ -41,7 +41,7 @@ export default class EbacProfile {
             DEFAULT_ABSORPTION_MINUTES)
     }
 
-    public static CreateFromProps(props: any) {        
+    public static CreateFromProps(props: any) {
         return new EbacProfile(
             props.bodyWeight,
             props.bodyWaterRatio,
@@ -52,7 +52,7 @@ export default class EbacProfile {
         )
     }
 
-    public static CreateFrom(profile: EbacProfile, props: any) {        
+    public static CreateFrom(profile: EbacProfile, props: any) {
         return new EbacProfile(
             props.bodyWeight ?? profile.bodyWeight,
             props.bodyWaterRatio ?? profile.bodyWaterRatio,
@@ -84,9 +84,9 @@ export default class EbacProfile {
     }
 
     public minutesToGreen(ebacPermillage: number) {
-        return minutesToGreen({ 
-            ebac: ebacPermillage, 
-            burnRate: this.burnRatePerHour, 
+        return minutesToGreen({
+            ebac: ebacPermillage,
+            burnRate: this.burnRatePerHour,
             greenLevel: this.greenLevelPermillage
         })
     }

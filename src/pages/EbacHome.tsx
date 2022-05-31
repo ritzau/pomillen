@@ -23,7 +23,7 @@ const EbacHome: React.FC = () => {
     const pomillenProfile = useContext(ProfileContext)
 
     const currentTime = Date.now() // FIXME?
-    
+
     const showShortcuts = pomillenDrinks.shortcuts.length > 0 || pomillenDrinks.drinks.length > 0
 
     const startTime = pomillenDrinks.drinks.length === 0 ? currentTime : pomillenDrinks.drinks[0].timestamp

@@ -38,7 +38,7 @@ export default class LocalStoragePomillenStore implements PomillenStore {
     storeDrinks(drinks: Drink[]) {
         localStorage.setItem(DRINKS_LIST_KEY, JSON.stringify(drinks))
     }
-    
+
     storeShortcuts(shortcuts: number[][]) {
         localStorage.setItem(SHORTCUT_LIST_KEY, JSON.stringify(shortcuts))
     }
