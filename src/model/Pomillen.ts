@@ -76,12 +76,12 @@ export class EditDrinkAction implements DrinksAction {
 
         const volumeCl = this.drink.volumeCl
         const alcoholPercent = this.drink.alcoholPercent
-    
+
         const filteredShortcuts = state.shortcuts.filter((shortcut: number[]) => {
             const [cl, pct] = shortcut
             return !(cl === volumeCl && pct === alcoholPercent)
         })
-        
+
         const shortcuts = [[volumeCl, alcoholPercent], ...filteredShortcuts].slice(0, 11)
 
         return {
@@ -128,7 +128,7 @@ export function deleteAllDrinksAction(): DrinksAction {
 
 export function useDrinks(backingStore: PomillenStore): PomillenDrinks {
     const [drinksState, drinksDispatch] = useReducer(
-        (state: DrinksState, action: DrinksAction) => action.process(state), 
+        (state: DrinksState, action: DrinksAction) => action.process(state),
         loadDrinksState(backingStore))
 
     const isFirstUpdate = useRef(true)
@@ -144,7 +144,7 @@ export function useDrinks(backingStore: PomillenStore): PomillenDrinks {
             backingStore.storeDrinks(drinksState.drinks)
         },
         [backingStore, drinksState])
-    
+
     return new PomillenDrinksImpl(drinksState, drinksDispatch)
 }
 
@@ -174,7 +174,7 @@ class PomillenDrinksImpl implements PomillenDrinks {
         readonly dispatch: React.Dispatch<DrinksAction>,
     ) { }
 
-    
+
     public get drinks() : Drink[] {
         return this.state.drinks
     }
@@ -182,8 +182,8 @@ class PomillenDrinksImpl implements PomillenDrinks {
     public get shortcuts() : number[][] {
         return this.state.shortcuts
     }
-    
-    
+
+
     addDrink(drink: Drink) {
         this.dispatch(new AddDrinkAction(drink))
     }

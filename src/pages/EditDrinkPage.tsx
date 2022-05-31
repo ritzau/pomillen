@@ -24,7 +24,7 @@ const EditDrinkPage: React.FC = () => {
     const classes = useStyles()
     const navigate = useNavigate()
     const params = useParams()
-    
+
     const pomillenDrinks = useContext(PomillenContext)
 
     const index = params.id === null? -1 : parseInt(params.id!)

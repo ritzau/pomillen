@@ -5,10 +5,10 @@ export default interface PomillenStore {
     loadDrinks: () => Drink[]
     loadShortcuts: () => number[][]
     loadProfile: () => EbacProfile
-    
+
     storeDrinks: (drinks: Drink[]) => void
     storeShortcuts: (shortcuts: number[][]) => void
     storeProfile: (profile: EbacProfile) => void
 
-    clear: () => void    
+    clear: () => void
 }

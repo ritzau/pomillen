@@ -126,7 +126,7 @@ it("computes peak", () => {
         absorptionMinutes,
         millisSinceEpoch,
     })).toMatchCloseTo({
-        peakTimeSinceEpoch: millisFromMinutes(absorptionMinutes), 
+        peakTimeSinceEpoch: millisFromMinutes(absorptionMinutes),
         peakGrams: 3 * g,
     })
 })
@@ -145,7 +145,7 @@ it("computes peak that peaked already", () => {
         absorptionMinutes,
         millisSinceEpoch: 2 * millisFromMinutes(absorptionMinutes),
     })).toMatchCloseTo({
-        peakTimeSinceEpoch: 2 * millisFromMinutes(absorptionMinutes), 
+        peakTimeSinceEpoch: 2 * millisFromMinutes(absorptionMinutes),
         peakGrams: 3 * g,
     })
 })
