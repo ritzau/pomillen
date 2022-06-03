@@ -51,6 +51,9 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
         legend: {
             enabled: false
         },
+        credits: {
+            enabled: false
+        },
         series: [{
             name: 'Ebac',
             type: 'spline',
@@ -69,7 +72,7 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
                 millisecond: "%H.%M",
                 minute: "%H.%M",
                 hour: "%H.%M",
-                day: "%b %e %H.%M",
+                day: "%H.%M",
                 week: "%b %e '%y",
                 month: "%b '%y",
                 year: "%y"
