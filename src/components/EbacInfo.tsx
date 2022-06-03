@@ -32,6 +32,9 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
         },
         colors: ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce',
         '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a'],
+        time: {
+            useUTC: false
+        },
         plotOptions: {
             series: {
                 marker: {
@@ -55,13 +58,18 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
         }],
         tooltip: {
             valueDecimals: 2,
+            dateTimeLabelFormats: {
+                millisecond: '%a %H.%M'
+            }
         },
         xAxis: {
             type: "datetime",
             tickInterval: 10 * 60 * 1000,
             dateTimeLabelFormats: {
-                hour: "%l %p",
-                day: "%b %e '%y",
+                millisecond: "%H.%M",
+                minute: "%H.%M",
+                hour: "%H.%M",
+                day: "%b %e %H.%M",
                 week: "%b %e '%y",
                 month: "%b '%y",
                 year: "%y"
