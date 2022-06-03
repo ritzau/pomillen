@@ -142,7 +142,6 @@ export function useDrinks(backingStore: PomillenStore): PomillenDrinks {
                 return
             }
 
-            console.log("Persist", drinksState)
             backingStore.storeShortcuts(drinksState.shortcuts)
             backingStore.storeDrinks(drinksState.drinks)
         },

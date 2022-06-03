@@ -25,7 +25,6 @@ export function usePomillenPreferences(backingStore: PomillenStore) {
 }
 
 function persist(backingStore: PomillenStore, ebacProfile: EbacProfile) {
-    console.log("persist", ebacProfile)
     backingStore.storeProfile(ebacProfile)
 }
 

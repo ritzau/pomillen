@@ -108,9 +108,5 @@ export function calculateEbac(
     const ebacGramsPerDl = peakGramsAlcoholPerDlBlood - burnRatePerHour * hoursPassed
     const permillage = 10 * ebacGramsPerDl
 
-    if (permillage <= 0) {
-        console.log({ bodyWaterRatio, bodyWeight, waterDl, bloodDl, peakGramsAlcoholPerDlBlood, burned: burnRatePerHour * hoursPassed, ebacGramsPerDl, waterToBloodRatio, alcoholGrams, burnRatePerHour, hoursPassed, permillage })
-    }
-
     return permillage
 }
