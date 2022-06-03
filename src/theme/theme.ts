@@ -1,9 +1,9 @@
 import { createTheme } from '@mui/material/styles';
 
-export default function createPomillenTheme(prefersLightMode: boolean) {
+export default function createPomillenTheme() {
     return createTheme({
         palette: {
-            mode: prefersLightMode ? "light" : "dark",
+            mode: 'dark',
             primary: {
                 main: "#444444",
                 light: "#666666",

@@ -2,6 +2,7 @@ import React, { ReactNode, useRef } from "react"
 
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
+import { green, yellow, orange, red } from '@mui/material/colors';
 
 import { clamp } from "../pomillen/utils"
 import Message from "./Message"
@@ -26,6 +27,11 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
         title: {
             text: undefined
         },
+        chart: {
+            backgroundColor: 'transparent',
+        },
+        colors: ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce',
+        '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a'],
         plotOptions: {
             series: {
                 marker: {
@@ -68,24 +74,23 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
             max: Math.min(maxEbac, 1.4),
             tickInterval: 0.2,
             plotBands: [
-                // colors={["#f00b", "#ff0b", "#0f0b", "#ff0b", "#f00b"]}
                 {
-                    color: '#AAFFAA',
+                    color: green[400],
                     from: 0.6,
                     to: 0.8,
                 },
                 {
-                    color: '#FCFFC5',
+                    color: yellow[400],
                     from: 0.8,
                     to: 1.0,
                 },
                 {
-                    color: '#FFDDAA',
+                    color: orange[400],
                     from: 1.0,
                     to: 1.2,
                 },
                 {
-                    color: '#FF7777',
+                    color: red[500],
                     from: 1.2,
                     to: 1.4,
                 },

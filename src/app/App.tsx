@@ -7,23 +7,23 @@ import {
     Routes,
 } from "react-router-dom"
 
-import ThemeProvider from "@mui/styles/ThemeProvider"
+import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from "@mui/material/CssBaseline"
 
 import { PomillenContext, ProfileContext, StoreContext } from "../pomillen/contexts"
 import { useDrinks } from "../model/Pomillen"
 import { usePomillenPreferences } from "../model/Preferences"
-import { usePomillenTheme } from "../pomillen/hooks"
 import AboutPage from "../pages/AboutPage"
 import EbacHome from "../pages/EbacHome"
 import EditDrinkPage from "../pages/EditDrinkPage"
 import NewDrinkPage from "../pages/NewDrinkPage"
 import SettingsPage from "../pages/SettingsPage"
 import useStyles from "../theme/styles"
+import createPomillenTheme from "../theme/theme";
 
+const theme = createPomillenTheme()
 
 const App: React.FC = () => {
-    const theme = usePomillenTheme()
     const classes = useStyles()
     const store = useContext(StoreContext)
     const pomillenDrinks = useDrinks(store)

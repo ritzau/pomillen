@@ -22,9 +22,7 @@ const EbacHome: React.FC = () => {
     const classes = useStyles()
     const pomillenDrinks = useContext(PomillenContext)
     const pomillenProfile = useContext(ProfileContext)
-    const currentTime = pomillenDrinks.now
-
-    useIntervallRefresh(60 * 1000)
+    const currentTime = useIntervallRefresh(60 * 1000)
 
     const showShortcuts = pomillenDrinks.shortcuts.length > 0 || pomillenDrinks.drinks.length > 0
 
@@ -36,7 +34,7 @@ const EbacHome: React.FC = () => {
 
     return (
         <>
-            <AppBar position="static" color="transparent">
+            <AppBar position="static">
                 <Toolbar variant="dense">
                     <Typography className={classes.title} variant="h6" color="inherit">
                         Pomillen

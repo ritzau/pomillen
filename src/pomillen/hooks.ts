@@ -1,19 +1,4 @@
-import { useEffect, useMemo, useReducer, useState } from "react"
-import useMediaQuery from '@mui/material/useMediaQuery'
-
-import createPomillenTheme from "../theme/theme"
-
-export function usePomillenTheme() {
-    const prefersLightMode = useMediaQuery("(prefers-color-scheme: light)")
-
-    // TODO: add support for user preferences in app
-    const theme = useMemo(
-        () => createPomillenTheme(prefersLightMode),
-        [prefersLightMode],
-    )
-
-    return theme
-}
+import { useEffect, useReducer, useState } from "react"
 
 export function useIntervallRefresh(periodMillis: number): number {
     const [, forceUpdate] = useReducer((x: number) => x + 1, 0)
