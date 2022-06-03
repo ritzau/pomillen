@@ -39,7 +39,15 @@ const AboutPage: React.FC = () => {
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
                             <Typography variant="h4" paragraph={true}>
-                                Credit
+                                Lagring av data
+                            </Typography>
+
+                            <Typography paragraph={true}>
+                                Data lagras endast lokalt i webbläsaren.
+                            </Typography>
+
+                            <Typography variant="h4" paragraph={true}>
+                                Tack
                             </Typography>
 
                             <Typography paragraph={true}>
@@ -50,23 +58,19 @@ const AboutPage: React.FC = () => {
                                 arbete på 1920 &ndash; 1930-talet. Killen har ett pris uppkallat efter sig 😎.
                             </Typography>
 
-                            <Typography paragraph={true}>
-                                Copyright (c) 2021 Tobias Ritzau
-                            </Typography>
-
                             <Typography variant="h5" paragraph={true}>
-                                Open Source
+                                Byggd med öppen källkod
                             </Typography>
 
                             <ul>
-                                <li>Create react app</li>
-                                <li>Highcharts</li>
-                                <li>Material UI</li>
-                                <li>Node JS</li>
-                                <li>npm</li>
-                                <li>React JS</li>
-                                <li>React Router</li>
-                                <li>Typescript</li>
+                                <li><a href="https://create-react-app.dev/">Create react app</a></li>
+                                <li><a href="https://www.highcharts.com/">Highcharts</a></li>
+                                <li><a href="https://mui.com/">Material UI</a></li>
+                                <li><a href="https://nodejs.org/">Node.js</a></li>
+                                <li><a href="https://www.npmjs.com/">npm</a></li>
+                                <li><a href="https://reactjs.org/">React JS</a></li>
+                                <li><a href="https://reactrouter.com/">React Router</a></li>
+                                <li><a href="https://www.typescriptlang.org/">Typescript</a></li>
                             </ul>
 
                             <Typography paragraph={true}>
@@ -77,6 +81,10 @@ const AboutPage: React.FC = () => {
                                 <a href="https://www.flaticon.com/" title="Flaticon">
                                     www.flaticon.com
                                 </a>
+                            </Typography>
+
+                            <Typography paragraph={true}>
+                                Copyright Tobias Ritzau
                             </Typography>
                         </Grid>
                     </Grid>
