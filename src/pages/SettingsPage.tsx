@@ -5,6 +5,11 @@ import { useNavigate } from "react-router-dom"
 import AppBar from '@mui/material/AppBar'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import Slider from '@mui/material/Slider'
@@ -15,7 +20,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 
 import clsx from "clsx"
 
-import { PomillenContext, ProfileContext } from "../pomillen/contexts"
+import { PomillenContext, ProfileContext, StoreContext } from "../pomillen/contexts"
 import useStyles from "../theme/styles"
 
 
@@ -24,14 +29,26 @@ const SettingsPage: React.FC = () => {
     const classes = useStyles()
     const preferences = useContext(ProfileContext)
     const pomillenDrinks = useContext(PomillenContext)
+    const pomillenStore = useContext(StoreContext)
+
+    const [open, setOpen] = React.useState(false);
 
     const profile = preferences.ebac
 
     function reset() {
-        pomillenDrinks.deleteAllDrinks()
+        preferences.clear()
+        pomillenDrinks.clear()
+        pomillenStore.clear()
         navigate('/home')
     }
 
+    const handleClickOpen = () => {
+        setOpen(true)
+    };
+
+    const handleClose = () => {
+        setOpen(false)
+    };
 
     return (
         <>
@@ -50,7 +67,7 @@ const SettingsPage: React.FC = () => {
             </AppBar>
 
             <main className={classes.content}>
-                <Container>
+                <Container sx={{mb: 3}}>
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
                             <Typography variant="h6">
@@ -144,14 +161,35 @@ const SettingsPage: React.FC = () => {
                             </Typography>
 
                             <Button
-                                className={clsx(classes.formButton, classes.deleteButton)}
+                                className={clsx(classes.formButton)}
+                                color="error"
                                 variant="contained"
-                                onClick={reset}
+                                onClick={handleClickOpen}
                             >
                                 Återställ
                             </Button>
 
-                            <Typography color="textSecondary" gutterBottom>
+                            <Dialog
+                                open={open}
+                                onClose={handleClose}
+                                aria-labelledby="alert-dialog-title"
+                                aria-describedby="alert-dialog-description"
+                            >
+                                <DialogTitle id="alert-dialog-title">
+                                    {"Vill du radera all data?"}
+                                </DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText id="alert-dialog-description">
+                                        Detta kan du inte ångra.
+                                    </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={handleClose}>Avbryt</Button>
+                                    <Button onClick={reset} autoFocus>OK</Button>
+                                </DialogActions>
+                            </Dialog>
+
+                            <Typography color="textSecondary">
                                 Allt försvinner&hellip;
                             </Typography>
                         </Grid>

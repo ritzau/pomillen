@@ -155,6 +155,7 @@ export interface PomillenDrinks {
     readonly shortcuts: number[][]
     readonly now: number
 
+    clear: () => void
     addDrink: (drink: Drink) => void
     deleteDrink:(id: number) => void
     deleteAllDrinks: () => void
@@ -166,6 +167,7 @@ export class PomillenDrinksNoop implements PomillenDrinks {
     readonly shortcuts = []
     readonly now = 0
 
+    clear() {}
     addDrink(drink: Drink) {}
     deleteDrink(index: number) {}
     deleteAllDrinks() {}
@@ -189,6 +191,10 @@ class PomillenDrinksImpl implements PomillenDrinks {
 
     public get now() : number {
         return this.state.now
+    }
+
+    clear() {
+        this.dispatch(new DrinkResetAction())
     }
 
     addDrink(drink: Drink) {
