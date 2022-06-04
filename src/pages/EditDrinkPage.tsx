@@ -55,7 +55,7 @@ const EditDrinkPage: React.FC = () => {
             </AppBar>
 
             <main className={classes.content}>
-                <Container>
+                <Container sx={{mb: 3}}>
                     <EditDrinkForm timestamp={timestamp} volume={volumeClString} percentage={alcoholString} onSave={edit} />
                 </Container>
             </main>

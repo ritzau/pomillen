@@ -2,13 +2,14 @@ import React, { ReactNode, useRef } from "react"
 
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
-import { green, yellow, orange, red } from '@mui/material/colors';
+import { orange } from '@mui/material/colors';
 
 import { clamp } from "../pomillen/utils"
 import Message from "./Message"
 
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
+import { useWindowDimensions } from "../pomillen/hooks";
 
 interface EbacInfoProps {
     ebac: number
@@ -19,9 +20,11 @@ interface EbacInfoProps {
 
 const EbacInfo: React.FC<EbacInfoProps> = (props) => {
     const chartComponentRef = useRef<HighchartsReact.RefObject>(null)
+    const { width: windowWidth } = useWindowDimensions()
 
+    const chartHeight = windowWidth > 450? '300' : '66%'
     const maxEbac = Math.max(...props.data.map((p) => p[1]))
-    // const message = props.rampedEbac > 1.6 ? "¯\\_(ツ)_/¯" : `${props.rampedEbac.toFixed(2)} ‰`
+    const showGraph = props.data.length > 1
 
     const options: Highcharts.Options = {
         title: {
@@ -29,16 +32,25 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
         },
         chart: {
             backgroundColor: 'transparent',
+            height: chartHeight,
+            style: {
+                fontFamily: [
+                    "BlinkMacSystemFont",
+                    "Lato",
+                    "Roboto",
+                    "Helvetica",
+                    "sans-serif",
+                ].join(","),
+            },
         },
-        colors: ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce',
-        '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a'],
+        colors: [orange[600]],
         time: {
             useUTC: false
         },
         plotOptions: {
             series: {
                 marker: {
-                    enabled: true
+                    enabled: false
                 },
                 zoneAxis: 'x',
                 zones: [{
@@ -55,7 +67,7 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
             enabled: false
         },
         series: [{
-            name: 'Ebac',
+            name: 'EBAC',
             type: 'spline',
             data: props.data,
         }],
@@ -67,7 +79,6 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
         },
         xAxis: {
             type: "datetime",
-            tickInterval: 10 * 60 * 1000,
             dateTimeLabelFormats: {
                 millisecond: "%H.%M",
                 minute: "%H.%M",
@@ -76,49 +87,38 @@ const EbacInfo: React.FC<EbacInfoProps> = (props) => {
                 week: "%b %e '%y",
                 month: "%b '%y",
                 year: "%y"
+            },
+            labels: {
+                style: {
+                    color: '#fff',
+                    fontSize: '12px',
+                }
             }
         },
         yAxis: {
             title: {
                 text: undefined,
             },
+            labels: {
+                style: {
+                    color: '#fff',
+                    fontSize: '12px',
+                }
+            },
             max: Math.min(maxEbac, 1.4),
-            tickInterval: 0.2,
-            plotBands: [
-                {
-                    color: green[400],
-                    from: 0.6,
-                    to: 0.8,
-                },
-                {
-                    color: yellow[400],
-                    from: 0.8,
-                    to: 1.0,
-                },
-                {
-                    color: orange[400],
-                    from: 1.0,
-                    to: 1.2,
-                },
-                {
-                    color: red[500],
-                    from: 1.2,
-                    to: 1.4,
-                },
-            ],
         },
     }
 
     return (
         <div>
-            <div>
+            {showGraph && <div>
                 <HighchartsReact
                     highcharts={Highcharts}
                     options={options}
                     ref={chartComponentRef}
                     {...props}
                 />
-            </div>
+            </div>}
 
             {AlertMessage(props.rampedEbac, props.ebac)}
         </div>

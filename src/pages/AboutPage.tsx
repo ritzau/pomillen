@@ -6,6 +6,7 @@ import AppBar from '@mui/material/AppBar'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
+import Link from '@mui/material/Link'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
@@ -35,7 +36,7 @@ const AboutPage: React.FC = () => {
             </AppBar>
 
             <main className={classes.content}>
-                <Container>
+                <Container sx={{mb: 3}}>
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
                             <Typography variant="h4" paragraph={true}>
@@ -63,24 +64,24 @@ const AboutPage: React.FC = () => {
                             </Typography>
 
                             <ul>
-                                <li><a href="https://create-react-app.dev/">Create react app</a></li>
-                                <li><a href="https://www.highcharts.com/">Highcharts</a></li>
-                                <li><a href="https://mui.com/">Material UI</a></li>
-                                <li><a href="https://nodejs.org/">Node.js</a></li>
-                                <li><a href="https://www.npmjs.com/">npm</a></li>
-                                <li><a href="https://reactjs.org/">React JS</a></li>
-                                <li><a href="https://reactrouter.com/">React Router</a></li>
-                                <li><a href="https://www.typescriptlang.org/">Typescript</a></li>
+                                <li><Link href="https://create-react-app.dev/">Create react app</Link></li>
+                                <li><Link href="https://www.highcharts.com/">Highcharts</Link></li>
+                                <li><Link href="https://mui.com/">Material UI</Link></li>
+                                <li><Link href="https://nodejs.org/">Node.js</Link></li>
+                                <li><Link href="https://www.npmjs.com/">npm</Link></li>
+                                <li><Link href="https://reactjs.org/">React JS</Link></li>
+                                <li><Link href="https://reactrouter.com/">React Router</Link></li>
+                                <li><Link href="https://www.typescriptlang.org/">Typescript</Link></li>
                             </ul>
 
                             <Typography paragraph={true}>
                                 Icons made by{" "}
-                                <a href="https://www.freepik.com" title="Freepik">
+                                <Link href="https://www.freepik.com" title="Freepik">
                                     Freepik
-                                </a> from{" "}
-                                <a href="https://www.flaticon.com/" title="Flaticon">
+                                </Link> from{" "}
+                                <Link href="https://www.flaticon.com/" title="Flaticon">
                                     www.flaticon.com
-                                </a>
+                                </Link>
                             </Typography>
 
                             <Typography paragraph={true}>

@@ -1,16 +1,18 @@
 import { createTheme } from '@mui/material/styles';
 
+import { grey, orange } from '@mui/material/colors';
+
 export default function createPomillenTheme() {
     return createTheme({
         palette: {
             mode: 'dark',
             primary: {
-                main: "#444444",
-                light: "#666666",
-                contrastText: "#ffffff",
+                main: orange[600],
             },
             secondary: {
-                main: "#4488ff",
+                main: grey[800],
+                // light: "#777",
+                contrastText: "#fff",
             },
         },
         typography: {

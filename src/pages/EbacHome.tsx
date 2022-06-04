@@ -45,7 +45,7 @@ const EbacHome: React.FC = () => {
             </AppBar>
 
             <main className={classes.content}>
-                <Container>
+                <Container sx={{mb: 3}}>
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
                             <EbacInfo

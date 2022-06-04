@@ -22,7 +22,7 @@ const ShortcutButton: React.FC<ShortcutButtonProps> = (props) => {
             <Button
                 fullWidth
                 size="small"
-                color="primary"
+                color="secondary"
                 {...props}
                 className={classes.shortcutButton}
             >
