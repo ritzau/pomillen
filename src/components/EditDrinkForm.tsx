@@ -35,17 +35,15 @@ const EditDrinkForm: React.FC<EditDrinkProps> = (props) => {
             <Grid item xs={12}>
                 <TextField
                     fullWidth
-                    label="Hur mycket"
-                    placeholder="Hur mycket tänker du bälja i dig?"
-                    aria-label="Dryckens volym i centiliter"
+                    variant="filled"
                     type="number"
+                    label="Hur mycket tänker du bälja i dig?"
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
                                 cl
                             </InputAdornment>
                         ),
-                        // XXX min: "0",
                     }}
                     value={volumeString}
                     onChange={e => setVolume(e.target.value)}
@@ -55,17 +53,15 @@ const EditDrinkForm: React.FC<EditDrinkProps> = (props) => {
             <Grid item xs={12}>
                 <TextField
                     fullWidth
-                    label="Hur stark"
-                    placeholder="Hur stark är drycken?"
-                    aria-label="Dryckens alkolholhalt i procent"
+                    variant="filled"
                     type="number"
+                    label="Hur stark är drickan?"
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
                                 %
                             </InputAdornment>
                         ),
-                        // XXX min: "0",
                     }}
                     value={percentageString}
                     onChange={e => setPercentage(e.target.value)}
@@ -80,15 +76,14 @@ const EditDrinkForm: React.FC<EditDrinkProps> = (props) => {
                         onChange={(newValue) => {
                             setValue(newValue)
                         }}
-                        renderInput={(params) => <TextField fullWidth {...params} />}
+                        renderInput={(params) => <TextField fullWidth variant="filled" {...params} />}
                     />
                 </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs justifyContent="center" display="flex">
                 <Button
                     variant="contained"
-                    fullWidth
                     disabled={disabled}
                     onClick={() => props.onSave(new Drink(timestamp, volume, percentage))}
                 >

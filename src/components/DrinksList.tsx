@@ -4,9 +4,9 @@ import {
 } from "react"
 
 
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -41,9 +41,11 @@ const DrinksList: React.FC = () => {
     }
 
     const NoDrinksMessage = () => (
-        <Button color="primary" variant="contained" fullWidth component={Link} to="/add">
-            Lägg till dricka
-        </Button>
+        <Box display="flex" justifyContent="center">
+            <Button color="primary" variant="contained" component={Link} to="/add">
+                Lägg till dricka
+            </Button>
+        </Box>
     )
 
     function formatTime(d: Date): string {
@@ -92,7 +94,7 @@ const DrinksList: React.FC = () => {
                                     size="small"
                                     onClick={() => pomillenDrinks.deleteDrink(i)}
                                     className={clsx(classes.listIconButton, editMode || classes.hidden)}
-                                    >
+                                >
                                     <DeleteForeverOutlinedIcon color="error" />
                                 </IconButton>
                             </TableCell>
@@ -104,7 +106,7 @@ const DrinksList: React.FC = () => {
     )
 
     return (
-        <Paper>
+        <>
             {
                 pomillenDrinks.drinks.length === 0
                     ? <NoDrinksMessage />
@@ -119,7 +121,7 @@ const DrinksList: React.FC = () => {
                         <DrinksTable />
                     </>
             }
-        </Paper>
+        </>
     )
 }
 
