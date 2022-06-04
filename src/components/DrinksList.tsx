@@ -77,14 +77,14 @@ const DrinksList: React.FC = () => {
                 </TableHead>
                 <TableBody>
                     {pomillenDrinks.drinks.map((d, i) => (
-                        <TableRow key={d.timestamp} onClick={() => edit(i)}>
-                            <TableCell>
+                        <TableRow key={d.timestamp}>
+                            <TableCell onClick={() => edit(i)}>
                                 {formatTime(new Date(d.timestamp))}
                             </TableCell>
-                            <TableCell align="right">
+                            <TableCell align="right" onClick={() => edit(i)}>
                                 {d.volumeCl.toFixed(0)}&nbsp;cl
                             </TableCell>
-                            <TableCell align="right">
+                            <TableCell align="right" onClick={() => edit(i)}>
                                 {d.alcoholPercent.toFixed(d.alcoholPercent < 10 ? 1 : 0)}&nbsp;%
                             </TableCell>
                             <TableCell align="right">
@@ -111,7 +111,7 @@ const DrinksList: React.FC = () => {
                     : <>
                         <Toolbar variant="dense">
                             <Typography variant="h6" className={classes.title}>Drickalista</Typography>
-                            <Button color="secondary" onClick={() => setEditMode(!editMode)}>
+                            <Button onClick={() => setEditMode(!editMode)}>
                                 {editMode ? "Klar" : "Redigera"}
                             </Button>
                         </Toolbar>
