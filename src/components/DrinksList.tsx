@@ -41,7 +41,7 @@ const DrinksList: React.FC = () => {
     }
 
     const NoDrinksMessage = () => (
-        <Button color="secondary" fullWidth component={Link} to="/add" className={classes.message}>
+        <Button color="primary" variant="contained" fullWidth component={Link} to="/add">
             Lägg till dricka
         </Button>
     )
