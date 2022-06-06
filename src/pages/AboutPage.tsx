@@ -12,6 +12,8 @@ import Typography from '@mui/material/Typography'
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 
+import { version } from '../lib/version'
+
 import useStyles from "../theme/styles"
 
 
@@ -36,22 +38,22 @@ const AboutPage: React.FC = () => {
             </AppBar>
 
             <main className={classes.content}>
-                <Container sx={{mb: 3}}>
+                <Container sx={{ mb: 3 }}>
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
-                            <Typography variant="h4" paragraph={true}>
+                            <Typography variant="h6" gutterBottom>
                                 Lagring av data
                             </Typography>
 
-                            <Typography paragraph={true}>
+                            <Typography variant="body2" gutterBottom>
                                 Data lagras endast lokalt i webbläsaren.
                             </Typography>
 
-                            <Typography variant="h4" paragraph={true}>
+                            <Typography variant="h6" gutterBottom mt={3}>
                                 Tack
                             </Typography>
 
-                            <Typography paragraph={true}>
+                            <Typography variant="body2" gutterBottom>
                                 Beräkningar och värden som används här är baserade på rapporten
                                 "Computing a BAC Estimate", utgiven av U.S. Department of Transportation
                                 &mdash; National Highway Traffic Safety Administration i oktober 1994.
@@ -59,33 +61,56 @@ const AboutPage: React.FC = () => {
                                 arbete på 1920 &ndash; 1930-talet. Killen har ett pris uppkallat efter sig 😎.
                             </Typography>
 
-                            <Typography variant="h5" paragraph={true}>
+                            <Typography variant="h6" gutterBottom mt={3}>
                                 Byggd med öppen källkod
                             </Typography>
 
-                            <ul>
-                                <li><Link href="https://create-react-app.dev/">Create react app</Link></li>
-                                <li><Link href="https://www.highcharts.com/">Highcharts</Link></li>
-                                <li><Link href="https://mui.com/">Material UI</Link></li>
-                                <li><Link href="https://nodejs.org/">Node.js</Link></li>
-                                <li><Link href="https://www.npmjs.com/">npm</Link></li>
-                                <li><Link href="https://reactjs.org/">React JS</Link></li>
-                                <li><Link href="https://reactrouter.com/">React Router</Link></li>
-                                <li><Link href="https://www.typescriptlang.org/">Typescript</Link></li>
-                            </ul>
+                            <Typography variant="body2" gutterBottom>
+                                Detta projektet bygger på massor med kod från andra projekt som till
+                                exempel:
+                                <ul>
+                                    <li><Link href="https://create-react-app.dev/">Create react app</Link></li>
+                                    <li><Link href="https://www.highcharts.com/">Highcharts</Link></li>
+                                    <li><Link href="https://mui.com/">Material UI</Link></li>
+                                    <li><Link href="https://nodejs.org/">Node.js</Link></li>
+                                    <li><Link href="https://www.npmjs.com/">npm</Link></li>
+                                    <li><Link href="https://reactjs.org/">React JS</Link></li>
+                                    <li><Link href="https://reactrouter.com/">React Router</Link></li>
+                                    <li><Link href="https://www.typescriptlang.org/">Typescript</Link></li>
+                                </ul>
+                            </Typography>
 
-                            <Typography paragraph={true}>
-                                Icons made by{" "}
+                            <Typography variant="body2" gutterBottom>
+                                Några av ikonerna är gjorda av{" "}
                                 <Link href="https://www.freepik.com" title="Freepik">
                                     Freepik
-                                </Link> from{" "}
+                                </Link> från{" "}
                                 <Link href="https://www.flaticon.com/" title="Flaticon">
                                     www.flaticon.com
                                 </Link>
                             </Typography>
 
-                            <Typography paragraph={true}>
-                                Copyright Tobias Ritzau
+                            <Typography variant="body2" gutterBottom>
+                                Och <Link href={process.env.PUBLIC_URL + '/third-party-licenses.txt'}>här</Link>
+                                {" "}hittar du licenserna till de andra projekten som används av Pomillen.
+                            </Typography>
+
+                            <Typography variant="h6" gutterBottom mt={3}>
+                                Info om Pomillen
+                            </Typography>
+
+                            <Typography variant="body2" gutterBottom>
+                                Detta är version {version} av Pomillen, och du hittar koden{" "}
+                                <Link href="https://github.com/ritzau/pomillen">här</Link>, och med
+                                lite tur kan du rapportera buggar och förbättringsforslag där också.
+                            </Typography>
+
+                            <Typography variant="body2" gutterBottom>
+                                Vill du tacka så letar du upp min adress och skickar ett vykort :)
+                            </Typography>
+
+                            <Typography variant="body2" gutterBottom>
+                                Copyright (c) 2022 Tobias Ritzau
                             </Typography>
                         </Grid>
                     </Grid>

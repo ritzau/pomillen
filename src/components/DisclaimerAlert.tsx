@@ -41,8 +41,8 @@ const DisclaimerAlert: React.FC = (props) => {
                     <Typography variant="body2" gutterBottom sx={{ fontStyle: 'italic' }}>
                         DISCLAIMER: This is not a tool. It is a toy. It tries to give you a rough
                         estimate of your blood alcohol content but it cannot be used to draw any
-                        conclusion about your state. There are also good chances that there are
-                        severe bugs that cause the states values to be way off. Most importantly
+                        conclusion about your state. There is also a good chance that there are
+                        severe bugs that cause the stated values to be way off. Most importantly
                         never drink and drive, not even the next day.
                     </Typography>
 
