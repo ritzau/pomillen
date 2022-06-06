@@ -68,6 +68,7 @@ class PomillenPreferencesImpl implements PomillenPreferences {
 
     clear() {
         this.setEbacProfile(EbacProfile.CreateProfile())
+        this.setSettings(new PomillenSettings())
     }
 
     updateEbacProfile(patch: any) {
