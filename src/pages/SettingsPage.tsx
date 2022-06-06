@@ -108,6 +108,7 @@ const SettingsPage: React.FC = () => {
                                 value={10 * profile.burnRatePerHour}
                                 marks={true}
                                 valueLabelDisplay="on"
+                                valueLabelFormat={(v) => { return v.toFixed(2) }}
                                 onChange={(_, v) =>
                                     preferences.updateEbacProfile({ burnRatePerHour: (v as number) / 10 })}
                             />
