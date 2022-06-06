@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography'
 import useStyles from "../theme/styles"
 
 import { PomillenContext, ProfileContext } from "../pomillen/contexts"
+import DisclaimerAlert from "../components/DisclaimerAlert"
 import DrinksList from "../components/DrinksList"
 import EbacInfo from "../components/EbacInfo"
 import MainMenu from "../components/MainMenu"
@@ -46,6 +47,7 @@ const EbacHome: React.FC = () => {
 
             <main className={classes.content}>
                 <Container sx={{mb: 3}}>
+                    <DisclaimerAlert />
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
                             <EbacInfo
