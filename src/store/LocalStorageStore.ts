@@ -1,10 +1,12 @@
 import PomillenStore from "./PomillenStore"
 import { Drink } from "../pomillen/Drink"
 import EbacProfile from "../pomillen/ebac"
+import PomillenSettings from "../pomillen/PomillenSettings"
 
 const DRINKS_LIST_KEY = "drinks"
 const SHORTCUT_LIST_KEY = "shortcuts"
 const EBAC_PROFILE_KEY = "profile"
+const POMILLEN_SETTINGS_KEY = "settings"
 
 export default class LocalStoragePomillenStore implements PomillenStore {
     loadDrinks() {
@@ -35,6 +37,16 @@ export default class LocalStoragePomillenStore implements PomillenStore {
         return EbacProfile.CreateFromProps(JSON.parse(item as string))
     }
 
+    loadSettings() {
+        let item = localStorage.getItem(POMILLEN_SETTINGS_KEY)
+        if (item === null) {
+            return new PomillenSettings()
+        }
+
+        return PomillenSettings.CreateFromProps(JSON.parse(item as string))
+    }
+
+
     storeDrinks(drinks: Drink[]) {
         localStorage.setItem(DRINKS_LIST_KEY, JSON.stringify(drinks))
     }
@@ -45,6 +57,10 @@ export default class LocalStoragePomillenStore implements PomillenStore {
 
     storeProfile(profile: EbacProfile) {
         localStorage.setItem(EBAC_PROFILE_KEY, JSON.stringify(profile))
+    }
+
+    storeSettings(settings: PomillenSettings) {
+        localStorage.setItem(POMILLEN_SETTINGS_KEY, JSON.stringify(settings))
     }
 
     clear() {

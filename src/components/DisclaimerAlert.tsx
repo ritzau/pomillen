@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog';
@@ -8,11 +8,20 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Typography from '@mui/material/Typography'
 
+import { ProfileContext } from "../pomillen/contexts";
+
 
 const DisclaimerAlert: React.FC = (props) => {
-    const [open, setOpen] = React.useState(true);
+    const preferences = useContext(ProfileContext)
+    const millisSinceLastEula = Date.now() - preferences.settings.lastConfirmedEula
+    const isTimeToShowEula = millisSinceLastEula > 0 && millisSinceLastEula / 1000 / 60 / 60 / 24 / 7 - 1 > 0
+
+    const [open, setOpen] = React.useState(isTimeToShowEula);
 
     const handleClose = () => {
+        preferences.updateSettings({
+            lastConfirmedEula: Date.now(),
+        })
         setOpen(false)
     };
 
