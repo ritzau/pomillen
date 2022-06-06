@@ -67,14 +67,17 @@ const DrinksList: React.FC = () => {
                         <TableCell>Tid</TableCell>
                         <TableCell align="right">Cl</TableCell>
                         <TableCell align="right">%</TableCell>
-                        <TableCell align="right">
-                            <IconButton
-                                onClick={localDeleteAllDrinks}
-                                className={clsx(classes.listIconButton, editMode || classes.hidden)}
-                            >
-                                <ClearAllIcon color="error" />
-                            </IconButton>
-                        </TableCell>
+                        {editMode &&
+                            <TableCell align="center">
+                                <Button
+                                    onClick={localDeleteAllDrinks}
+                                    color="error"
+                                    className={clsx(editMode || classes.hidden)}
+                                >
+                                    Rensa allt
+                                </Button>
+                            </TableCell>
+                        }
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -89,15 +92,17 @@ const DrinksList: React.FC = () => {
                             <TableCell align="right" onClick={() => edit(i)}>
                                 {d.alcoholPercent.toFixed(d.alcoholPercent < 10 ? 1 : 0)}&nbsp;%
                             </TableCell>
-                            <TableCell align="right">
-                                <IconButton
-                                    size="small"
-                                    onClick={() => pomillenDrinks.deleteDrink(i)}
-                                    className={clsx(classes.listIconButton, editMode || classes.hidden)}
-                                >
-                                    <DeleteForeverOutlinedIcon color="error" />
-                                </IconButton>
-                            </TableCell>
+                            {editMode &&
+                                <TableCell align="center">
+                                    <IconButton
+                                        size="small"
+                                        onClick={() => pomillenDrinks.deleteDrink(i)}
+                                        className={clsx(classes.listIconButton, editMode || classes.hidden)}
+                                    >
+                                        <DeleteForeverOutlinedIcon color="error" />
+                                    </IconButton>
+                                </TableCell>
+                            }
                         </TableRow>
                     ))}
                 </TableBody>
