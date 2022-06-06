@@ -38,7 +38,9 @@ export default class EbacProfile {
             WATER_TO_BLOOD_RATIO,
             (BURN_RATE_FEMALE + BURN_RATE_MALE) / 2,
             DEFAULT_GREEN_LEVEL_PERMILLAGE,
-            DEFAULT_ABSORPTION_MINUTES)
+            DEFAULT_ABSORPTION_MINUTES,
+            false,
+        )
     }
 
     public static CreateFromProps(props: any) {
@@ -49,6 +51,7 @@ export default class EbacProfile {
             props.burnRatePerHour,
             props.greenLevelPermillage,
             props.absorptionMinutes,
+            true,
         )
     }
 
@@ -60,6 +63,7 @@ export default class EbacProfile {
             props.burnRatePerHour ?? profile.burnRatePerHour,
             props.greenLevelPermillage ?? profile.greenLevelPermillage,
             props.absorptionMinutes ?? profile.absorptionMinutes,
+            true,
         )
     }
 
@@ -70,6 +74,7 @@ export default class EbacProfile {
         readonly burnRatePerHour: number,
         readonly greenLevelPermillage: number,
         readonly absorptionMinutes: number,
+        readonly isUpdated: boolean,
     ) { }
 
     public ebac(alcoholGrams: number, hoursPassed: number): number {

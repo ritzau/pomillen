@@ -1,4 +1,5 @@
 import React, { useContext } from "react"
+import { useNavigate } from "react-router-dom"
 
 import AppBar from '@mui/material/AppBar'
 import Container from '@mui/material/Container'
@@ -20,6 +21,7 @@ import { ebacDataPoints } from "../pomillen/EbacCalculator"
 
 
 const EbacHome: React.FC = () => {
+    const navigate = useNavigate()
     const classes = useStyles()
     const pomillenDrinks = useContext(PomillenContext)
     const pomillenProfile = useContext(ProfileContext)
@@ -32,6 +34,10 @@ const EbacHome: React.FC = () => {
     const endMillis = currentTime + hoursToMilliseconds(4)
     let data = ebacDataPoints(pomillenProfile.ebac, pomillenDrinks.drinks, currentTime, endMillis)
     let peakEbac = Math.max(...data.filter((p) => p[0] >= currentTime).map((p) => p[1]))
+
+    if (!pomillenProfile.ebac.isUpdated) {
+        navigate('/config')
+    }
 
     return (
         <>
