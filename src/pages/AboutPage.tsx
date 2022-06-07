@@ -88,9 +88,7 @@ const AboutPage: React.FC = () => {
                                 <Link href="https://www.flaticon.com/" title="Flaticon">
                                     www.flaticon.com
                                 </Link>
-                            </Typography>
-
-                            <Typography variant="body2" gutterBottom>
+                            
                                 Och <Link href={process.env.PUBLIC_URL + '/third-party-licenses.txt'}>här</Link>
                                 {" "}hittar du licenserna till de andra projekten som används av Pomillen.
                             </Typography>
@@ -103,9 +101,6 @@ const AboutPage: React.FC = () => {
                                 Detta är version {version} av Pomillen, och du hittar koden{" "}
                                 <Link href="https://github.com/ritzau/pomillen">här</Link>, och med
                                 lite tur kan du rapportera buggar och förbättringsforslag där också.
-                            </Typography>
-
-                            <Typography variant="body2" gutterBottom>
                                 Vill du tacka så letar du upp min adress och skickar ett vykort :)
                             </Typography>
 
