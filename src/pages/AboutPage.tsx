@@ -89,7 +89,7 @@ const AboutPage: React.FC = () => {
                                     www.flaticon.com
                                 </Link>
                             
-                                Och <Link href={process.env.PUBLIC_URL + '/third-party-licenses.txt'}>här</Link>
+                                , och <Link href={process.env.PUBLIC_URL + '/third-party-licenses.txt'}>här</Link>
                                 {" "}hittar du licenserna till de andra projekten som används av Pomillen.
                             </Typography>
 
@@ -101,7 +101,7 @@ const AboutPage: React.FC = () => {
                                 Detta är version {version} av Pomillen, och du hittar koden{" "}
                                 <Link href="https://github.com/ritzau/pomillen">här</Link>, och med
                                 lite tur kan du rapportera buggar och förbättringsforslag där också.
-                                Vill du tacka så letar du upp min adress och skickar ett vykort :)
+                                Vill du skicka ett tack så leta upp min adress och skicka ett vykort :)
                             </Typography>
 
                             <Typography variant="body2" gutterBottom>
