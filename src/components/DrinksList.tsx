@@ -74,7 +74,7 @@ const DrinksList: React.FC = () => {
                                     color="error"
                                     className={clsx(editMode || classes.hidden)}
                                 >
-                                    Rensa allt
+                                    Rensa
                                 </Button>
                             </TableCell>
                         }
